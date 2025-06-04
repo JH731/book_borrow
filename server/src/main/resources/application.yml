@@ -1,0 +1,52 @@
+server:
+  port: 8088
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${borrow.datasource.driver-class-name}
+      url: jdbc:mysql://${borrow.datasource.host}:${borrow.datasource.port}/${borrow.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${borrow.datasource.username}
+      password: ${borrow.datasource.password}
+  redis:
+    host: ${borrow.redis.host}
+    port: ${borrow.redis.port}
+    database: ${borrow.redis.database}
+
+mybatis-plus:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sky.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      example:
+        mapper: debug
+        service: info
+        controller: info
+
+borrow:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: book
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+
+    user-secret-key: borrow
+    user-ttl: 720000
+    user-token-name: authentication
+  alioss:
+    endpoint: ${borrow.alioss.endpoint}
+    access-key-id: ${borrow.alioss.access-key-id}
+    access-key-secret: ${borrow.alioss.access-key-secret}
+    bucket-name: ${borrow.alioss.bucket-name}

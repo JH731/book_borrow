@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.BorrowMapper">
+
+    <select id="pageQuery" resultType="com.example.vo.BorrowVO">
+        select
+        bw.* ,
+        bk.name as bookName,
+        bk.author as author,
+        bk.publish as publish,
+        bk.edition as edition,
+        ct.name AS categoryName
+        from book_borrow.borrow bw
+        left join
+        book_borrow.book bk on bw.book_id = bk.id
+        left join
+        book_borrow.category ct on bk.category_id = ct.id
+        <where>
+            <if test="userId != null">
+                and bw.user_id = #{userId}
+            </if>
+            <if test="categoryId != null">
+                and bk.category_id = #{categoryId}
+            </if>
+            <if test="startTime != null">
+                and bw.start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and bw.end_time = #{endTime}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="borrowList" resultType="com.example.vo.AdminBorrowVO">
+        select
+        bw.* ,
+        bk.name as bookName,
+        bk.author as author,
+        bk.publish as publish,
+        bk.edition as edition,
+        ct.name AS categoryName,
+        bu.name as userName
+        from book_borrow.borrow bw
+        left join
+        book_borrow.book bk on bw.book_id = bk.id
+        left join
+        book_borrow.category ct on bk.category_id = ct.id
+        left join
+        book_borrow.user bu on bw.user_id = bu.id
+        <where>
+            and bw.status = 0
+            <if test="userId != null">
+                and bw.user_id = #{userId}
+            </if>
+            <if test="userName != null">
+                and bu.name = #{userName}
+            </if>
+            <if test="categoryName != null">
+                and ct.name = #{categoryName}
+            </if>
+            <if test="categoryId != null">
+                and bk.category_id = #{categoryId}
+            </if>
+            <if test="startTime != null">
+                and bw.start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and bw.end_time = #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.example.entity.Borrow">
+        UPDATE book_borrow.borrow
+        <set>
+            <!-- 动态更新业务字段 -->
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="bookId != null">
+                book_id = #{bookId},
+            </if>
+            <!-- 状态变更时自动设置时间 -->
+<!--            <choose>-->
+<!--                <when test="status == 1"> &lt;!&ndash; 已归还 &ndash;&gt;-->
+<!--                    return_time = NOW(),-->
+<!--                </when>-->
+<!--                <when test="status == 2"> &lt;!&ndash; 丢失 &ndash;&gt;-->
+<!--                    return_time = NULL,-->
+<!--                </when>-->
+<!--            </choose>-->
+            <if test="updateTime != null">
+                update_time = NOW(),
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getByBookIds" resultType="java.lang.Long">
+        SELECT id FROM book_borrow.borrow where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <delete id="deleteIds">
+        DELETE FROM book_borrow.borrow
+        WHERE id IN
+        <foreach item="borrowId" collection="borrowIds" open="(" separator="," close=")">
+            #{borrowId}
+        </foreach>
+    </delete>
+</mapper>

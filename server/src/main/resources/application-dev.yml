@@ -1,0 +1,17 @@
+borrow:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: book_borrow
+    username: root
+    password: 1234
+  redis:
+    host: localhost
+    port: 6379
+    database: 10
+  alioss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: LTAI5tJ77fSXnRxvxJvAMK6C
+    access-key-secret: 3bDgEz6r7TohTaF3VuxSwSMLW32tJT
+    bucket-name: lvdongjian-sky-itcast

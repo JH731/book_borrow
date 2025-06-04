@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.BackMapper">
+
+
+    <select id="pageQuery" resultType="com.example.vo.BackVO">
+        select
+        bw.* ,
+        bk.name as bookName,
+        bk.author as author,
+        bk.publish as publish,
+        bk.edition as edition,
+        from book_borrow.borrow bw
+        left join
+        book_borrow.book bk on bw.book_id = bk.id
+        <where>
+            and bw.status = 1
+            <if test="userId != null">
+                and bw.user_id = #{userId}
+            </if>
+            <if test="categoryId != null">
+                and bk.category_id = #{categoryId}
+            </if>
+            <if test="startTime != null">
+                and bw.start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and bw.end_time = #{endTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="list" resultType="com.example.vo.BackVO">
+        SELECT
+        bc.id AS id,          -- back表主键
+        bk.name AS bookName,      -- 书籍名称
+        bu.name AS userName,      -- 用户名称
+        bc.status AS status,  -- back表的状态
+        bw.start_time,            -- 保留原查询中的其他字段
+        bw.end_time
+        FROM book_borrow.back bc       -- 主表改为back表
+        LEFT JOIN book_borrow.borrow bw ON bc.brid = bw.id  -- 关联借阅记录
+        LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id -- 关联书籍表
+        LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id -- 新增用户表关联
+        <where>
+            and bc.status = 0  -- 核心条件：back表状态为0
+            <if test="userId != null">
+                AND bw.user_id = #{userId}  -- 注意字段归属变为borrow表
+            </if>
+            <if test="categoryId != null">
+                AND bk.category_id = #{categoryId}  -- 书籍分类条件
+            </if>
+            <if test="startTime != null">
+                AND bw.start_time >= #{startTime}  -- 建议改为范围查询
+            </if>
+            <if test="endTime != null">
+                AND bw.end_time &lt;= #{endTime}    -- 注意转义小于号
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.example.entity.Back">
+        UPDATE book_borrow.back
+        <set>
+            <if test="brid != null">brid = #{brid},</if>
+            <if test="status != null">status = #{status},</if>
+            <!-- 若表中有数据版本控制字段 -->
+            <!-- <if test="version != null">version = version + 1,</if> -->
+        </set>
+        WHERE id = #{id}
+        <!-- 若开启乐观锁需添加 -->
+        <!-- <if test="version != null">AND version = #{version}</if> -->
+    </update>
+
+
+</mapper>

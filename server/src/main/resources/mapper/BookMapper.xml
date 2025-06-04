@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.BookMapper">
+
+
+    <select id="pageQuery" resultType="com.example.vo.BookVO">
+        select b.* , c.name as categoryName from book_borrow.book b left join book_borrow.category c on b.category_id = c.id
+        <where>
+            b.stock > 0 <!-- 固定条件：stock必须大于0 -->
+            <if test="name != null">
+                and b.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and b.category_id = #{categoryId}
+            </if>
+            <if test="categoryName != null">
+                and c.category_name = #{categoryName}
+            </if>
+            <if test="status != null">
+                and b.status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.example.entity.Book">
+        UPDATE book_borrow.book
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=BIGINT},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="publish != null">
+                publish = #{publish,jdbcType=VARCHAR},
+            </if>
+            <if test="edition != null">
+                edition = #{edition,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                image = #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="stock != null">
+                stock = #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <!-- 乐观锁版本号自动+1 -->
+            <if test="version != null">
+                version = version + 1,
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+        <if test="version != null">
+            AND version = #{version,jdbcType=INTEGER}
+        </if>
+    </update>
+
+    <!-- 根据ID列表批量删除书籍 -->
+    <delete id="deleteByIds">
+        DELETE FROM book_borrow.book
+        WHERE id IN
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
