@@ -45,6 +45,11 @@ borrow:
     user-secret-key: borrow
     user-ttl: 720000
     user-token-name: authentication
+
+    secret-key: borrow
+    ttl: 720000
+    token-name: token
+
   alioss:
     endpoint: ${borrow.alioss.endpoint}
     access-key-id: ${borrow.alioss.access-key-id}

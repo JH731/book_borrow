@@ -5,7 +5,7 @@ borrow:
     port: 3306
     database: book_borrow
     username: root
-    password: 1234
+    password: 123456
   redis:
     host: localhost
     port: 6379

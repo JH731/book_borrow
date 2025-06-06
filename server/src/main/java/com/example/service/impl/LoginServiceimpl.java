@@ -12,6 +12,8 @@ import com.example.mapper.EmployeeMapper;
 import com.example.mapper.UserMapper;
 import com.example.service.LoginService;
 import com.example.vo.LoginVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import java.util.function.Function;
 
 @Service
 public class LoginServiceimpl implements LoginService {
+    private static final Logger log = LoggerFactory.getLogger(LoginServiceimpl.class);
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -31,7 +34,8 @@ public class LoginServiceimpl implements LoginService {
     @Override
     public LoginVO login(LoginDTO loginDTO) {
         final String username = loginDTO.getUserName();
-        final String inputPassword = DigestUtils.md5DigestAsHex(
+        final String inputPassword =
+                DigestUtils.md5DigestAsHex(
                 loginDTO.getPassword().getBytes(StandardCharsets.UTF_8)
         );
 
@@ -56,11 +60,13 @@ public class LoginServiceimpl implements LoginService {
                                      Function<T, String> passwordExtractor) {
         T entity = entityFetcher.apply(username);
         if (entity == null) {
+            log.info("账户不存在");
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
         }
 
         String storedPassword = passwordExtractor.apply(entity);
         if (!storedPassword.equals(inputPassword)) {
+            log.error("密码验证失败 - 存储密码: {}, 输入密码: {}", storedPassword, inputPassword);
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
 
