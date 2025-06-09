@@ -1,6 +1,7 @@
 package com.example.configuration;
 
 import com.example.Interceptor.JwtTokenAdminInterceptor;
+import com.example.Interceptor.JwtTokenEmployeeInterceptor;
 import com.example.Interceptor.JwtTokenInterceptor;
 import com.example.Interceptor.JwtTokenUserInterceptor;
 import com.example.json.JacksonObjectMapper;
@@ -35,6 +36,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     private JwtTokenUserInterceptor jwtTokenUserInterceptor;
     @Autowired
     private JwtTokenInterceptor jwtTokenInterceptor;
+    @Autowired
+    private JwtTokenEmployeeInterceptor jwtTokenEmployeeInterceptor;
     /**
      * 注册自定义拦截器
      *
@@ -43,13 +46,14 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册自定义拦截器...");
         registry.addInterceptor(jwtTokenAdminInterceptor)
-                .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin/employee/login");
+                .addPathPatterns("/admin/**");
 
         registry.addInterceptor(jwtTokenUserInterceptor)
-                .addPathPatterns("/user/**")
-                .excludePathPatterns("/user/user/login")
-                .excludePathPatterns("/user/shop/status");
+                .addPathPatterns("/user/**");
+
+        registry.addInterceptor(jwtTokenEmployeeInterceptor)
+                .addPathPatterns("/employee/**");
+
         registry.addInterceptor(jwtTokenInterceptor)
                 .addPathPatterns("/login/**")
                 .excludePathPatterns("/login/login");

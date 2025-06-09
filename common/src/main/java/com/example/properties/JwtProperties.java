@@ -13,14 +13,20 @@ public class JwtProperties {
      */
     private String adminSecretKey;
     private Long adminTtl;
-    private String adminTokenName;
+    private String adminTokenName = "admin";
 
     /**
      *用户端用户生成jwt令牌相关配置
      */
     private String userSecretKey;
     private Long userTtl;
-    private String userTokenName;
+    private String userTokenName = "user";
+
+
+    private String employeeSecretKey;
+    private Long employeeTtl;
+    private String employeeTokenName = "employee";
+
 
     /**
      * 统一的jwt令牌配置
