@@ -71,7 +71,6 @@ public class LoginServiceimpl implements LoginService {
         }
 
         LoginVO loginVO = new LoginVO();
-        //todo 这里的名字先都统一是userName,后面都要改
         BeanUtils.copyProperties(loginVO, entity);
         return loginVO;
     }

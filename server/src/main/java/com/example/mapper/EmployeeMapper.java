@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface EmployeeMapper {
-    @Select("SELECT * FROM book_borrow.employee WHERE name = #{username} ")
+    @Select("SELECT id ,name as userName,password FROM book_borrow.employee WHERE name = #{username} ")
     Employee getByUsername(String username);
 
     @Options(useGeneratedKeys = true, keyProperty = "id") // 获取自增ID

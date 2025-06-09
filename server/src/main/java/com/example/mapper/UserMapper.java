@@ -18,7 +18,10 @@ public interface UserMapper{
                     "FROM book_borrow.user " +
                     "WHERE name = #{userName}"
     )
+
+    @Select("SELECT id ,name as userName,password FROM book_borrow.user WHERE name = #{userName}")
     User getByUserName(String userName);
+
     @Select(
             "SELECT " +
                     "id, name, password, phone, sex, avatar, status, " +
