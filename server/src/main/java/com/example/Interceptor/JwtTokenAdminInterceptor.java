@@ -47,11 +47,11 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             //校验成功后解析JWT令牌里面的ID,转化为long类型的
-            Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
+            Long id = Long.valueOf(claims.get(JwtClaimsConstant.LOGIN_ID).toString());
             //然后借助ThreadLocal来存放这个empId到这个线程的空间中去,后续Service层中对Employee对象赋值时再取出来
-            BaseContext.setCurrentId(empId);
+            BaseContext.setCurrentId(id);
 
-            log.info("当前管理员id：", empId);
+            log.info("当前管理员id：{}", id);
             //3、通过，放行
             return true;
         } catch (Exception ex) {

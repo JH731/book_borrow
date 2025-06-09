@@ -48,11 +48,11 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
             //校验成功后解析JWT令牌里面的ID,转化为long类型的
-            Long userId = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
+            Long id = Long.valueOf(claims.get(JwtClaimsConstant.LOGIN_ID).toString());
             //然后借助ThreadLocal来存放这个empId到这个线程的空间中去,后续Service层中对Employee对象赋值时再取出来
-            BaseContext.setCurrentId(userId);
+            BaseContext.setCurrentId(id);
 
-            log.info("当前用户id：{}", userId);
+            log.info("当前用户id：{}", id);
             //3、通过，放行
             return true;
         } catch (Exception ex) {
