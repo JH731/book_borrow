@@ -13,6 +13,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  * jwt令牌校验的拦截器
@@ -34,6 +35,13 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
      * @throws Exception
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // 打印所有请求头
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            log.debug("请求头 - {}: {}", headerName, headerValue);
+        }
         //判断当前拦截到的是Controller的方法还是其他资源
         if (!(handler instanceof HandlerMethod)) {
             //当前拦截到的不是动态方法，直接放行
@@ -52,7 +60,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
             //然后借助ThreadLocal来存放这个id到这个线程的空间中去,后续Service层中对Employee对象赋值时再取出来
             BaseContext.setCurrentId(id);
 
-            log.info("当前管理员id：", id);
+            log.info("当前用户id：{}", id);
             //3、通过，放行
             return true;
         } catch (Exception ex) {
