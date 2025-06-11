@@ -42,6 +42,7 @@ public class LoginController {
     public Result<?> login(LoginDTO loginDTO) {
         log.info("登录:{}",loginDTO);
         LoginVO loginVO = loginService.login(loginDTO);
+//        System.out.println("loginId" + loginVO.getId());
         //登录成功后，生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.LOGIN_ID, loginVO.getId());

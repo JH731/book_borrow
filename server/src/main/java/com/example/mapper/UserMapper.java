@@ -9,15 +9,6 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper{
-    @Select(
-            "SELECT " +
-                    "id, name, password, phone, sex, avatar, status, " +
-                    "create_time AS createTime, create_user AS createUser, " +
-                    "update_time AS updateTime, update_user AS updateUser, " +
-                    "max_borrow AS maxBorrow " +
-                    "FROM book_borrow.user " +
-                    "WHERE name = #{userName}"
-    )
 
     @Select("SELECT id ,name as userName,password FROM book_borrow.user WHERE name = #{userName}")
     User getByUserName(String userName);

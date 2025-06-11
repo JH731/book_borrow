@@ -45,6 +45,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
         //2、校验令牌
         try {
             log.info("jwt校验:{}", token);
+            System.out.println("jwt密钥：" + jwtProperties.getAdminSecretKey());
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             //校验成功后解析JWT令牌里面的ID,转化为long类型的
             Long id = Long.valueOf(claims.get(JwtClaimsConstant.LOGIN_ID).toString());
@@ -55,6 +56,10 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             //3、通过，放行
             return true;
         } catch (Exception ex) {
+            // 获取异常的简单描述
+            String message = ex.getMessage();
+            System.out.println("异常信息: " + message);
+            ex.printStackTrace();
             //4、不通过，响应401状态码
             response.setStatus(401);
             return false;

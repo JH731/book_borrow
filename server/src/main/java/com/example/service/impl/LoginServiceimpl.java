@@ -71,7 +71,7 @@ public class LoginServiceimpl implements LoginService {
         }
 
         LoginVO loginVO = new LoginVO();
-        BeanUtils.copyProperties(loginVO, entity);
+        BeanUtils.copyProperties(entity, loginVO);
         return loginVO;
     }
 }
