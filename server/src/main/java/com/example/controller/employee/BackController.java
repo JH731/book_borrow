@@ -25,7 +25,7 @@ public class BackController {
      */
     @ApiOperation("归还申请分页查询")
     @GetMapping("/adminList")
-    public Result<PageResult> adminList(@RequestBody BackQueryDTO backQueryDTO){
+    public Result<PageResult> adminList(BackQueryDTO backQueryDTO){
         PageResult pageResult = backService.adminList(backQueryDTO);
         return Result.success(pageResult);
     }

@@ -48,7 +48,7 @@ public class BookController {
      */
     @GetMapping("/page")
     @ApiOperation("分页查询书籍")
-    public Result<PageResult> page(@RequestBody BookQueryDTO bookQueryDTO){
+    public Result<PageResult> page(BookQueryDTO bookQueryDTO){
         log.info("书籍分页插叙:{}",bookQueryDTO);
         PageResult pageResult = bookService.pageQuery(bookQueryDTO);
         return Result.success(pageResult);

@@ -28,7 +28,7 @@ public class BorrowController {
      */
     @ApiOperation("借阅申请分页查询")
     @GetMapping("/borrowList")
-    public Result<PageResult> borrowList(@RequestBody BorrowQueryDTO borrowQueryDTO){
+    public Result<PageResult> borrowList(BorrowQueryDTO borrowQueryDTO){
         PageResult pageResult = borrowService.borrowList(borrowQueryDTO);
         return Result.success(pageResult);
     }
@@ -51,7 +51,7 @@ public class BorrowController {
      * @return
      */
     @PostMapping("/notAllow")
-    @ApiOperation("借阅通过")
+    @ApiOperation("借阅不通过")
     public Result<String> notAllow(@PathVariable Integer id){
         borrowService.notAllow(id);
         return Result.success();
