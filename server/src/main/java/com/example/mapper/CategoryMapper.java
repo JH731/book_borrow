@@ -5,10 +5,7 @@ import com.example.dto.CategoryPageQueryDTO;
 import com.example.entity.Category;
 import com.example.enumeration.OperationType;
 import com.github.pagehelper.Page;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,6 +18,8 @@ public interface CategoryMapper {
     @AutoFill(value = OperationType.INSERT)
     void insert(Category category);
 
+    @Select("SELECT * FROM book_borrow.category " +
+            "WHERE (#{name} IS NULL OR name LIKE CONCAT('%', #{name}, '%'))")
     Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
 
     @Select("select * from book_borrow.category")
@@ -29,8 +28,15 @@ public interface CategoryMapper {
     @Select("SELECT id FROM book_borrow.category WHERE name = #{categoryName} LIMIT 1")
     Long getIdByName(String categoryName);
 
+    @Update("UPDATE book_borrow.category " +
+            "SET " +
+            "name = CASE WHEN #{name} IS NOT NULL THEN #{name} ELSE name END, " +
+            "update_time = CASE WHEN #{updateTime} IS NOT NULL THEN #{updateTime} ELSE update_time END, " +
+            "update_user = CASE WHEN #{updateUser} IS NOT NULL THEN #{updateUser} ELSE update_user END " +
+            "WHERE id = #{id}")
     @AutoFill(value = OperationType.UPDATE)
     void update(Category category);
+
 
     @Select("select * from book_borrow.category where id = #{id}")
     Category getById(Long id);

@@ -74,7 +74,7 @@ public class UserController {
      */
     @GetMapping("/page")
     @ApiOperation("分页查询用户信息")
-    public Result<PageResult> page(UserPageQueryDTO userPageQueryDTO){
+    public Result<PageResult> page(@RequestBody UserPageQueryDTO userPageQueryDTO){
         //输出日志,便于调试
         log.info("用户分页查询,参数为:{}",userPageQueryDTO);
         //调用Service层的方法,希望返回的类型是所需要的PageResult类型

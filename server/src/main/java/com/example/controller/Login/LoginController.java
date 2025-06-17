@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +40,7 @@ public class LoginController {
 
     @PostMapping("/login")
     @ApiOperation("登录")
-    public Result<?> login(LoginDTO loginDTO) {
+    public Result<?> login(@RequestBody LoginDTO loginDTO) {
         log.info("登录:{}",loginDTO);
         LoginVO loginVO = loginService.login(loginDTO);
 //        System.out.println("loginId" + loginVO.getId());

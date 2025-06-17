@@ -6,10 +6,7 @@ import com.example.entity.Book;
 import com.example.enumeration.OperationType;
 import com.example.vo.BookVO;
 import com.github.pagehelper.Page;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,6 +24,15 @@ public interface BookMapper {
     @AutoFill(value = OperationType.INSERT)
     void insert(Book book);
 
+    // 分页查询：纯MySQL语法（无动态标签）
+    @Select("SELECT b.*, c.name as categoryName " +
+            "FROM book_borrow.book b " +
+            "LEFT JOIN book_borrow.category c ON b.category_id = c.id " +
+            "WHERE b.stock > 0 " +
+            "  AND ( #{name} IS NULL OR b.name LIKE CONCAT('%', #{name}, '%') ) " +
+            "  AND ( #{categoryId} IS NULL OR b.category_id = #{categoryId} ) " +
+            "  AND ( #{categoryName} IS NULL OR c.name = #{categoryName} ) " +
+            "  AND ( #{status} IS NULL OR b.status = #{status} ) ")
     Page<BookVO> pageQuery(BookQueryDTO bookQueryDTO);
 
     @Select(
@@ -39,9 +45,25 @@ public interface BookMapper {
     )
     Book getById(Long bookId);
 
+    @Update("UPDATE book_borrow.book " +
+            "SET " +
+            "name = CASE WHEN #{name} IS NOT NULL AND #{name} != '' THEN #{name} ELSE name END, " +
+            "category_id = CASE WHEN #{categoryId} IS NOT NULL THEN #{categoryId} ELSE category_id END, " +
+            "author = CASE WHEN #{author} IS NOT NULL THEN #{author} ELSE author END, " +
+            "publish = CASE WHEN #{publish} IS NOT NULL THEN #{publish} ELSE publish END, " +
+            "edition = CASE WHEN #{edition} IS NOT NULL THEN #{edition} ELSE edition END, " +
+            "image = CASE WHEN #{image} IS NOT NULL THEN #{image} ELSE image END, " +
+            "status = CASE WHEN #{status} IS NOT NULL THEN #{status} ELSE status END, " +
+            "stock = CASE WHEN #{stock} IS NOT NULL THEN #{stock} ELSE stock END, " +
+            "update_time = CASE WHEN #{updateTime} IS NOT NULL THEN #{updateTime} ELSE update_time END, " +
+            "update_user = CASE WHEN #{updateUser} IS NOT NULL THEN #{updateUser} ELSE update_user END " +
+            "WHERE id = #{id}")
     @AutoFill(value = OperationType.UPDATE)
     void update(Book book);
 
+    // 批量删除：纯MySQL语法（参数改为逗号分隔字符串）
+    @Delete("DELETE FROM book_borrow.book " +
+            "WHERE FIND_IN_SET(id, #{idStr}) > 0")
     void deleteByIds(List<Long> ids);
 
     @Select("SELECT id FROM book_borrow.book WHERE category_id = #{id}")

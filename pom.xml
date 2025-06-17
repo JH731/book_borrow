@@ -61,6 +61,12 @@
                 <artifactId>commons-lang</artifactId>
                 <version>${commons.lang}</version>
             </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <scope>runtime</scope>
+                <version>8.0.30</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -130,5 +136,6 @@
         </dependencies>
 
     </dependencyManagement>
+
 
 </project>

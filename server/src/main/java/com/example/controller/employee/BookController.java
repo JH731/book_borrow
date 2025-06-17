@@ -48,7 +48,7 @@ public class BookController {
      */
     @GetMapping("/page")
     @ApiOperation("分页查询书籍")
-    public Result<PageResult> page(BookQueryDTO bookQueryDTO){
+    public Result<PageResult> page(@RequestBody BookQueryDTO bookQueryDTO){
         log.info("书籍分页插叙:{}",bookQueryDTO);
         PageResult pageResult = bookService.pageQuery(bookQueryDTO);
         return Result.success(pageResult);
@@ -102,7 +102,7 @@ public class BookController {
      */
     @GetMapping("/list")
     @ApiOperation("根据分类id查询书籍")
-    public Result<List<Book>> list(Long categoryId){
+    public Result<List<Book>> list(@PathVariable Long categoryId){
         List<Book> list = bookService.list(categoryId);
         return Result.success(list);
     }
