@@ -62,7 +62,7 @@ public interface BorrowMapper {
     List<Long> getByUserId(Long id);
 
     @Select("SELECT id FROM book_borrow.borrow " +
-            "WHERE FIND_IN_SET(id, #{idStr}) > 0")
+            "WHERE FIND_IN_SET(id, #{ids}) > 0")
     List<Long> getByBookIds(List<Long> ids);
 
     @Delete("DELETE FROM book_borrow.borrow " +
