@@ -40,4 +40,7 @@ public interface CategoryMapper {
 
     @Select("select * from book_borrow.category where id = #{id}")
     Category getById(Long id);
+
+    @Delete("delete from book_borrow.category where id = #{id}")
+    void deleteById(Long id);
 }

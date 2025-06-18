@@ -43,7 +43,8 @@ public class CategoryServiceimpl implements CategoryService {
 
     @Override
     public void deleteById(Long id) {
-
+        //删除分类
+        categoryMapper.deleteById(id);
     }
 
     @Override

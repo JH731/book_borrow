@@ -56,13 +56,14 @@ public class BookServiceimpl implements BookService {
     @Transactional
     public void deleteBatch(List<Long> ids) {
         //首先查询是否和borrow表有关联,有就不能删除
-        List<Long> borrowIds = borrowMapper.getByBookIds(ids);
+        String idsStr = StringUtils.collectionToCommaDelimitedString(ids);
+        List<Long> borrowIds = borrowMapper.getByBookIds(idsStr);
         if (borrowIds != null && borrowIds.size() > 0) {
             String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
             borrowMapper.deleteIds(borrowIdStr);
         }
 
-        bookMapper.deleteByIds(ids);
+        bookMapper.deleteByIds(idsStr);
     }
 
     @Override
