@@ -83,4 +83,17 @@ public class EmployeeController {
         return Result.success(employee);
     }
 
+    /**
+     * 删除员工信息
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("删除员工信息")
+    public Result delete(Long id){
+        log.info("删除员工信息: {}",id);
+        employeeService.delete(id);
+        return Result.success();
+    }
+
 }

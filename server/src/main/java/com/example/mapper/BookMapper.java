@@ -63,7 +63,7 @@ public interface BookMapper {
 
     // 批量删除：纯MySQL语法（参数改为逗号分隔字符串）
     @Delete("DELETE FROM book_borrow.book " +
-            "WHERE FIND_IN_SET(id, #{idStr}) > 0")
+            "WHERE FIND_IN_SET(id, #{ids}) > 0")
     void deleteByIds(List<Long> ids);
 
     @Select("SELECT id FROM book_borrow.book WHERE category_id = #{id}")

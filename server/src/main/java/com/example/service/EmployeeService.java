@@ -18,4 +18,6 @@ public interface EmployeeService {
     Employee getById(Long id);
 
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    void delete(Long id);
 }

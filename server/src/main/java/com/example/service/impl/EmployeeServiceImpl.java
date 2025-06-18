@@ -115,6 +115,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public void delete(Long id) {
+        employeeMapper.deleteByid(id);
+    }
+
+    @Override
     public void update(EmployeeDTO employeeDTO) {
         //在之前的启用禁用接口中就设置了动态SQL进行修改员工的数据,这里需要转换EmployeeDTO对象即可
         Employee employee = new Employee();

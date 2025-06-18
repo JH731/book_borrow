@@ -66,7 +66,7 @@ public interface BorrowMapper {
     List<Long> getByBookIds(List<Long> ids);
 
     @Delete("DELETE FROM book_borrow.borrow " +
-            "WHERE FIND_IN_SET(id, #{borrowIdStr}) > 0")
+            "WHERE FIND_IN_SET(id, #{borrowIds}) > 0")
     void deleteIds(List<Long> borrowIds);
 
 
