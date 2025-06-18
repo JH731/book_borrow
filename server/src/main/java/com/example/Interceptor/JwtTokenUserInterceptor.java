@@ -56,6 +56,10 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             //3、通过，放行
             return true;
         } catch (Exception ex) {
+            // 获取异常的简单描述
+            String message = ex.getMessage();
+            System.out.println("异常信息: " + message);
+            ex.printStackTrace();
             //4、不通过，响应401状态码
             response.setStatus(401);
             return false;

@@ -46,7 +46,7 @@ public class JwtTokenEmployeeInterceptor implements HandlerInterceptor {
         //2、校验令牌
         try {
             log.info("jwt校验:{}", token);
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getEmployeeSecretKey(), token);
             //校验成功后解析JWT令牌里面的ID,转化为long类型的
             Long id = Long.valueOf(claims.get(JwtClaimsConstant.LOGIN_ID).toString());
             //然后借助ThreadLocal来存放这个empId到这个线程的空间中去,后续Service层中对Employee对象赋值时再取出来
@@ -56,6 +56,10 @@ public class JwtTokenEmployeeInterceptor implements HandlerInterceptor {
             //3、通过，放行
             return true;
         } catch (Exception ex) {
+            // 获取异常的简单描述
+            String message = ex.getMessage();
+            System.out.println("异常信息: " + message);
+            ex.printStackTrace();
             //4、不通过，响应401状态码
             response.setStatus(401);
             return false;
