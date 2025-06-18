@@ -16,4 +16,6 @@ public class BookQueryDTO implements Serializable {
 
     private Integer status;
 
+    private String categoryName;
+
 }
