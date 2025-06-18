@@ -65,9 +65,8 @@ public interface BorrowMapper {
             "WHERE FIND_IN_SET(id, #{ids}) > 0")
     List<Long> getByBookIds(List<Long> ids);
 
-    @Delete("DELETE FROM book_borrow.borrow " +
-            "WHERE FIND_IN_SET(id, #{borrowIds}) > 0")
-    void deleteIds(List<Long> borrowIds);
+    @Delete("DELETE FROM book_borrow.borrow WHERE id IN (${borrowIdStr})")
+    void deleteIds(String borrowIdStr);
 
 
     @Insert("INSERT INTO book_borrow.borrow (status, user_id, book_id, start_time, end_time, return_time) " +

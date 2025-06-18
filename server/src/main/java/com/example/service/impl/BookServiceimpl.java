@@ -19,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -57,8 +58,8 @@ public class BookServiceimpl implements BookService {
         //首先查询是否和borrow表有关联,有就不能删除
         List<Long> borrowIds = borrowMapper.getByBookIds(ids);
         if (borrowIds != null && borrowIds.size() > 0) {
-            //需要删除对应的借阅记录
-            borrowMapper.deleteIds(borrowIds);
+            String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
+            borrowMapper.deleteIds(borrowIdStr);
         }
 
         bookMapper.deleteByIds(ids);

@@ -29,6 +29,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -135,8 +136,9 @@ public class UserServiceimpl implements UserService {
         //根据用户id查询是否有关联的借阅id
         List<Long> borrowIds = borrowMapper.getByUserId(id);
         if (borrowIds != null && borrowIds.size() > 0) {
-            //需要删除对应的借阅记录
-            borrowMapper.deleteIds(borrowIds);
+            // List<Long> → "1,2,3" 格式的字符串
+            String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
+            borrowMapper.deleteIds(borrowIdStr);
         }
         userMapper.delete(id);
     }
