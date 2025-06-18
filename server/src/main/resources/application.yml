@@ -49,7 +49,7 @@ borrow:
     # 设置jwt签名加密时使用的秘钥
     employee-secret-key: borrow
     # 设置jwt过期时间
-    employeettl: 7200000
+    employee-ttl: 7200000
     # 设置前端传递过来的令牌名称
     employee-token-name: employeeToken
 

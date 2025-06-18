@@ -12,9 +12,8 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
     @Insert("INSERT INTO book_borrow.category (name, create_time, update_time, create_user, update_user) " +
-            "VALUES (#{category.name}, #{category.createTime}, #{category.updateTime}, " +
-            "#{category.createUser}, #{category.updateUser})")
-    @Options(useGeneratedKeys = true, keyProperty = "category.id", keyColumn = "id")
+            "VALUES (#{name}, #{createTime}, #{updateTime}, " +
+            "#{createUser}, #{updateUser})")
     @AutoFill(value = OperationType.INSERT)
     void insert(Category category);
 
