@@ -71,7 +71,7 @@ public class CategoryController {
      */
     @DeleteMapping
     @ApiOperation("删除分类")
-    public Result<String> deleteById(@PathVariable Integer id) throws Exception {
+    public Result<String> deleteById(@RequestParam Integer id) throws Exception {
         log.info("删除分类：{}", id);
         if (categoryService.hasBooks(id)) {
             throw new Exception("该分类下存在图书，无法删除");
