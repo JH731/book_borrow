@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Employee {
 
-    private Long id;
+    private Integer id;
 
     private String name;
 

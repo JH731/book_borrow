@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
-    private Long id;
+    private Integer id;
     //姓名
     private String name;
     // md5加密存储
