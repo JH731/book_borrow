@@ -15,16 +15,16 @@ import java.math.BigDecimal;
 public class BorrowDetail implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
 
     //名称
     private String name;
 
     //借阅id
-    private Long borrowId;
+    private Integer borrowId;
 
     //书籍id
-    private Long bookId;
+    private Integer bookId;
 
     //该书的借阅数量
     private Integer number;

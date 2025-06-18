@@ -13,17 +13,17 @@ public interface BookService {
 
     PageResult pageQuery(BookQueryDTO bookQueryDTO);
 
-    void deleteBatch(List<Long> ids);
+    void deleteBatch(List<Integer> ids);
 
-    BookVO getById(Long id);
+    BookVO getById(Integer id);
 
     void update(BookDTO bookDTO);
 
-    List<Book> list(Long categoryId);
+    List<Book> list(Integer categoryId);
 
-    void startOrStop(Integer status, Long id);
+    void startOrStop(Integer status, Integer id);
 
-    Book findById(Long bookId);
+    Book findById(Integer bookId);
 
-    void returnBook(Long bookId);
+    void returnBook(Integer bookId);
 }

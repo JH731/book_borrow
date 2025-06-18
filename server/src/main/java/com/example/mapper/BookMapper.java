@@ -43,7 +43,7 @@ public interface BookMapper {
                     "FROM book_borrow.book " +
                     "WHERE id = #{bookId}"
     )
-    Book getById(Long bookId);
+    Book getById(Integer bookId);
 
     @Update("UPDATE book_borrow.book " +
             "SET " +
@@ -66,5 +66,5 @@ public interface BookMapper {
     void deleteByIds(String idsStr);
 
     @Select("SELECT id FROM book_borrow.book WHERE category_id = #{id}")
-    List<Long> getByCategoryId(Long id);
+    List<Integer> getByCategoryId(Integer id);
 }

@@ -36,7 +36,7 @@ public class User implements Serializable {
     //注册时间
     private LocalDateTime createTime;
 
-    private Long createUser;
+    private Integer createUser;
 
     //登录时间
 
@@ -44,7 +44,7 @@ public class User implements Serializable {
     private LocalDateTime updateTime;
 
     //修改的管理员
-    private Long updateUser;
+    private Integer updateUser;
 
     //最大可借阅数量就设置为3
     private Integer maxBorrow = 3;

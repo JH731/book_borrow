@@ -22,7 +22,7 @@ public interface UserMapper{
                     "FROM book_borrow.user " +
                     "WHERE id = #{userID}"
     )
-    User getById(Long userID);
+    User getById(Integer userID);
 
     // 动态查询：name非空时模糊匹配，空时查全部
     @Select("SELECT user.* FROM book_borrow.user " +
@@ -56,8 +56,8 @@ public interface UserMapper{
     void insert(User user);
 
     @Select("select count(id) from book_borrow.user where phone = #{phone} ")
-    Long getCountByPhone(String phone);
+    Integer getCountByPhone(String phone);
 
     @Delete("DELETE FROM book_borrow.user WHERE id = #{id}")
-    void delete(Long id);
+    void delete(Integer id);
 }

@@ -71,7 +71,7 @@ public class CategoryController {
      */
     @DeleteMapping
     @ApiOperation("删除分类")
-    public Result<String> deleteById(@PathVariable Long id) throws Exception {
+    public Result<String> deleteById(@PathVariable Integer id) throws Exception {
         log.info("删除分类：{}", id);
         if (categoryService.hasBooks(id)) {
             throw new Exception("该分类下存在图书，无法删除");
@@ -99,7 +99,7 @@ public class CategoryController {
      */
     @GetMapping("/{id}")
     @ApiOperation("根据id查询分类")
-    public Result<Category> getById(@PathVariable Long id){
+    public Result<Category> getById(@PathVariable Integer id){
         log.info("根据id查询分类:{}",id);
         Category category = categoryService.getById(id);
         return Result.success(category);

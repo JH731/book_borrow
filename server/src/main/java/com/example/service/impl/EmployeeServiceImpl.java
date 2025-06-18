@@ -115,7 +115,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         employeeMapper.deleteByid(id);
     }
 
@@ -138,7 +138,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    public Employee getById(Long id) {
+    public Employee getById(Integer id) {
         Employee employee = employeeMapper.getById(id);
         //隐藏密码,不让前端看到
         employee.setPassword("****");

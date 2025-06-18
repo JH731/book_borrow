@@ -59,11 +59,11 @@ public interface BorrowMapper {
     Page<AdminBorrowVO> borrowList(BorrowQueryDTO borrowQueryDTO);
 
     @Select("SELECT id FROM book_borrow.borrow WHERE user_id = #{id}")
-    List<Long> getByUserId(Long id);
+    List<Integer> getByUserId(Integer id);
 
     @Select("SELECT id FROM book_borrow.borrow " +
             "WHERE id IN (${idsStr})")
-    List<Long> getByBookIds(String idsStr);
+    List<Integer> getByBookIds(String idsStr);
 
     @Delete("DELETE FROM book_borrow.borrow WHERE id IN (${borrowIdStr})")
     void deleteIds(String borrowIdStr);

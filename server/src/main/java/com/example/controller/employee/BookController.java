@@ -61,7 +61,7 @@ public class BookController {
      */
     @DeleteMapping
     @ApiOperation("书籍批量删除")
-    public Result delete(@RequestParam List<Long> ids){
+    public Result delete(@RequestParam List<Integer> ids){
         //使用注解@RequestParam可以让SpringMVC自动帮我们解析前端传过来的参数String类型的,然后根据,分隔成id
         log.info("书籍批量删除:{}",ids);
         //调用Service接口的方法来进行删除对应的菜品
@@ -76,7 +76,7 @@ public class BookController {
      */
     @GetMapping("/{id}")
     @ApiOperation("根据id查询书籍")
-    public Result<BookVO> getById(@PathVariable Long id){
+    public Result<BookVO> getById(@PathVariable Integer id){
         log.info("根据id查询书籍:{}",id);
         BookVO bookVO = bookService.getById(id);
         return Result.success(bookVO);
@@ -102,7 +102,7 @@ public class BookController {
      */
     @GetMapping("/list")
     @ApiOperation("根据分类id查询书籍")
-    public Result<List<Book>> list(@PathVariable Long categoryId){
+    public Result<List<Book>> list(@PathVariable Integer categoryId){
         List<Book> list = bookService.list(categoryId);
         return Result.success(list);
     }
@@ -115,7 +115,7 @@ public class BookController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("书籍能否借阅状态修改")
-    public Result<String> startOrStop(@PathVariable Integer status, Long id){
+    public Result<String> startOrStop(@PathVariable Integer status, Integer id){
         bookService.startOrStop(status,id);
         return Result.success();
     }

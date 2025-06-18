@@ -32,8 +32,8 @@ public interface EmployeeMapper {
     void update(Employee employee);
 
     @Select("SELECT * FROM book_borrow.employee WHERE id = #{id}  ")
-    Employee getById(Long id);
+    Employee getById(Integer id);
 
     @Delete("DELETE FROM book_borrow.employee WHERE id = #{id}")
-    void deleteByid(Long id);
+    void deleteByid(Integer id);
 }

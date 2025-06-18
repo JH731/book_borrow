@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class EmployeeDTO implements Serializable {
-    private Long id;
+    private Integer id;
 
     private String password;
 

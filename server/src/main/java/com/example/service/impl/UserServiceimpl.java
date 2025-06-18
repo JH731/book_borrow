@@ -75,7 +75,7 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public User getById(Long userID) {
+    public User getById(Integer userID) {
         User user = userMapper.getById(userID);
         //隐藏密码
         user.setPassword("****");
@@ -92,7 +92,7 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public void startOrstop(Integer status, Long id) {
+    public void startOrstop(Integer status, Integer id) {
         User user = User.builder()
                 .id(id)
                 .status(status)
@@ -121,7 +121,7 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public void update(UserDTO userDTO) {
-        Long userId = BaseContext.getCurrentId();
+        Integer userId = BaseContext.getCurrentId();
         userDTO.setUpdateUser(userId);
         userDTO.setUpdateTime(LocalDateTime.now());
         User user = new User();
@@ -131,10 +131,10 @@ public class UserServiceimpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
+    public void delete(Integer id) {
         //需要先判断当前的用户是否有关联的借阅记录,如果有就不能删除
         //根据用户id查询是否有关联的借阅id
-        List<Long> borrowIds = borrowMapper.getByUserId(id);
+        List<Integer> borrowIds = borrowMapper.getByUserId(id);
         if (borrowIds != null && borrowIds.size() > 0) {
             // List<Long> → "1,2,3" 格式的字符串
             String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);

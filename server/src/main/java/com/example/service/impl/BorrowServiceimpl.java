@@ -28,7 +28,7 @@ public class BorrowServiceimpl implements BorrowService {
     private BookMapper bookMapper;
     @Override
     public PageResult pageQuery(BorrowQueryDTO borrowQueryDTO) {
-        Long userId = BaseContext.getCurrentId();
+        Integer userId = BaseContext.getCurrentId();
         borrowQueryDTO.setUserId(userId);
         PageHelper.startPage(borrowQueryDTO.getPage(),borrowQueryDTO.getPageSize());
         Page<BorrowVO> page = borrowMapper.pageQuery(borrowQueryDTO);
@@ -53,7 +53,7 @@ public class BorrowServiceimpl implements BorrowService {
     }
 
     @Override
-    public Integer getCurrentBorrowCount(Long userID) {
+    public Integer getCurrentBorrowCount(Integer userID) {
         return null;
     }
 
@@ -64,7 +64,7 @@ public class BorrowServiceimpl implements BorrowService {
 
     @Override
     public PageResult borrowList(BorrowQueryDTO borrowQueryDTO) {
-        Long userId = BaseContext.getCurrentId();
+        Integer userId = BaseContext.getCurrentId();
         borrowQueryDTO.setUserId(userId);
         PageHelper.startPage(borrowQueryDTO.getPage(),borrowQueryDTO.getPageSize());
         Page<AdminBorrowVO> page = borrowMapper.borrowList(borrowQueryDTO);

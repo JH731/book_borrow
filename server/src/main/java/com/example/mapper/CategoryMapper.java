@@ -26,7 +26,7 @@ public interface CategoryMapper {
     List<Category> list();
 
     @Select("SELECT id FROM book_borrow.category WHERE name = #{categoryName} LIMIT 1")
-    Long getIdByName(String categoryName);
+    Integer getIdByName(String categoryName);
 
     @Update("UPDATE book_borrow.category " +
             "SET " +
@@ -39,8 +39,8 @@ public interface CategoryMapper {
 
 
     @Select("select * from book_borrow.category where id = #{id}")
-    Category getById(Long id);
+    Category getById(Integer id);
 
     @Delete("delete from book_borrow.category where id = #{id}")
-    void deleteById(Long id);
+    void deleteById(Integer id);
 }

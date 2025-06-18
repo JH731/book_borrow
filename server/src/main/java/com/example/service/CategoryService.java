@@ -12,14 +12,14 @@ public interface CategoryService {
 
     PageResult pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
 
-    void deleteById(Long id);
+    void deleteById(Integer id);
 
     void update(CategoryDTO categoryDTO);
 
 
     List<Category> list();
 
-    boolean hasBooks(Long id);
+    boolean hasBooks(Integer id);
 
-    Category getById(Long id);
+    Category getById(Integer id);
 }

@@ -44,7 +44,7 @@ public class BookController {
      */
     @GetMapping("/{id}")
     @ApiOperation("根据id查询书籍")
-    public Result<BookVO> getById(@PathVariable Long id){
+    public Result<BookVO> getById(@PathVariable Integer id){
         log.info("根据id查询书籍:{}",id);
         BookVO bookVO = bookService.getById(id);
         return Result.success(bookVO);
@@ -58,7 +58,7 @@ public class BookController {
      */
     @GetMapping("/list")
     @ApiOperation("根据分类id查询书籍")
-    public Result<List<Book>> list(Long categoryId){
+    public Result<List<Book>> list(Integer categoryId){
         List<Book> list = bookService.list(categoryId);
         return Result.success(list);
     }

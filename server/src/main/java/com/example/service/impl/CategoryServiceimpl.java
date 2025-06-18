@@ -42,7 +42,7 @@ public class CategoryServiceimpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         //删除分类
         categoryMapper.deleteById(id);
     }
@@ -63,8 +63,8 @@ public class CategoryServiceimpl implements CategoryService {
     }
 
     @Override
-    public boolean hasBooks(Long id) {
-        List<Long> bookIds = bookMapper.getByCategoryId(id);
+    public boolean hasBooks(Integer id) {
+        List<Integer> bookIds = bookMapper.getByCategoryId(id);
         if (bookIds != null && bookIds.size() > 0) {
             return true;
         }
@@ -72,7 +72,7 @@ public class CategoryServiceimpl implements CategoryService {
     }
 
     @Override
-    public Category getById(Long id) {
+    public Category getById(Integer id) {
         Category category = categoryMapper.getById(id);
         if (category == null){
             throw new BaseException(MessageConstant.CATEGORY_NOT_FOUND);

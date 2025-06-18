@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 
 @Data
 public class BookDTO {
-    private Long id;
+    private Integer id;
     //书籍名称
     private String name;
     //书籍分类id
-    private Long categoryId;
+    private Integer categoryId;
     //分类名称
     private String categoryName;
     //图片

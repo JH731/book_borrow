@@ -30,7 +30,7 @@ public class BackServiceimpl implements BackService {
     private BookMapper bookMapper;
     @Override
     public PageResult pageQuery(BackQueryDTO backQueryDTO) {
-        Long userId = BaseContext.getCurrentId();
+        Integer userId = BaseContext.getCurrentId();
         backQueryDTO.setUserId(userId);
         PageHelper.startPage(backQueryDTO.getPage(),backQueryDTO.getPageSize());
         Page<BackVO> page = backMapper.pageQuery(backQueryDTO);
@@ -51,7 +51,7 @@ public class BackServiceimpl implements BackService {
 
     @Override
     public PageResult adminList(BackQueryDTO backQueryDTO) {
-        Long userId = BaseContext.getCurrentId();
+        Integer userId = BaseContext.getCurrentId();
         backQueryDTO.setUserId(userId);
         PageHelper.startPage(backQueryDTO.getPage(),backQueryDTO.getPageSize());
         Page<BackVO> page = backMapper.list(backQueryDTO);

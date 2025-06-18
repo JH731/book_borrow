@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class BookVO {
-    private Long id;
+    private Integer id;
     //书籍名称
     private String name;
     //书籍分类id
-    private Long categoryId;
+    private Integer categoryId;
     //作者
     private String author;
     //出版社

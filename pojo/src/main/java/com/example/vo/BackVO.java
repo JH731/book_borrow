@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BackVO extends Borrow implements Serializable {
-    private Long id;
+    private Integer id;
     private String userName;
     //借阅书籍
     private String bookName;

@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class CategoryDTO implements Serializable {
     //主键
-    private Long id;
+    private Integer id;
 
     //类型: 1文学 2科学
     private Integer type;

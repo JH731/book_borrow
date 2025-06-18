@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 @Data
 public class Book {
 
-    private Long id;
+    private Integer id;
     //书籍名称
     private String name;
     //书籍分类id
-    private Long categoryId;
+    private Integer categoryId;
     //作者
     private String author;
     //出版社
@@ -30,8 +30,8 @@ public class Book {
 
     private LocalDateTime updateTime;
 
-    private Long createUser;
+    private Integer createUser;
 
-    private Long updateUser;
+    private Integer updateUser;
 
 }

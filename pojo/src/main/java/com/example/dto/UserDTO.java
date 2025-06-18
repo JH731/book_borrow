@@ -27,7 +27,7 @@ public class UserDTO implements Serializable {
     private LocalDateTime updateTime;
 
     //修改的管理员
-    private Long updateUser;
+    private Integer updateUser;
 
     //最大可借阅数量就设置为3
     private Integer maxBorrow = 3;

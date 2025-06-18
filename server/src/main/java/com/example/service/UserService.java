@@ -16,11 +16,11 @@ public interface UserService {
     User login(UserLoginDTO userLoginDTO);
 
 
-    User getById(Long userID);
+    User getById(Integer userID);
 
     PageResult pageQuery(UserPageQueryDTO userPageQueryDTO);
 
-    void startOrstop(Integer status, Long id);
+    void startOrstop(Integer status, Integer id);
 
 
     void save(User user);
@@ -31,6 +31,6 @@ public interface UserService {
 
     void update(UserDTO userDTO);
 
-    void delete(Long id);
+    void delete(Integer id);
 
 }

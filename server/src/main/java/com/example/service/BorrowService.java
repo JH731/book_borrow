@@ -15,7 +15,7 @@ public interface BorrowService {
 
     BorrowVO details(Long id);
 
-    Integer getCurrentBorrowCount(Long userID);
+    Integer getCurrentBorrowCount(Integer userID);
 
     void save(Borrow record);
 

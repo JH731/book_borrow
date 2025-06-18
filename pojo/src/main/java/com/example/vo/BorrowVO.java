@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BorrowVO extends Borrow implements Serializable {
-    private Long id;
+    private Integer id;
     //借阅书籍
     private String bookName;
     //书籍类别

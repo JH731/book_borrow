@@ -15,9 +15,9 @@ public interface EmployeeService {
     void update(EmployeeDTO employeeDTO);
 
 
-    Employee getById(Long id);
+    Employee getById(Integer id);
 
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

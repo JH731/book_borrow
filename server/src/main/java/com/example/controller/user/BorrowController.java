@@ -58,8 +58,8 @@ public class  BorrowController {
     @ApiOperation("借阅书籍")
     @PostMapping("/borrow/{bookId}")
     @Transactional
-    public Result<?> borrowBook(@PathVariable Long bookId) {
-        Long userID = BaseContext.getCurrentId();
+    public Result<?> borrowBook(@PathVariable Integer bookId) {
+        Integer userID = BaseContext.getCurrentId();
         User user = userService.getById(userID);
         Book book = bookService.findById(bookId);
 

@@ -37,7 +37,7 @@ public class BookServiceimpl implements BookService {
         Book book = new Book();
         BeanUtils.copyProperties(book,bookDTO);
         //根据传过来的categoryName获得对应的id
-        Long categoryId = categoryMapper.getIdByName(bookDTO.getCategoryName());
+        Integer categoryId = categoryMapper.getIdByName(bookDTO.getCategoryName());
         book.setCategoryId(categoryId);
         bookMapper.insert(book);
     }
@@ -54,10 +54,10 @@ public class BookServiceimpl implements BookService {
 
     @Override
     @Transactional
-    public void deleteBatch(List<Long> ids) {
+    public void deleteBatch(List<Integer> ids) {
         //首先查询是否和borrow表有关联,有就不能删除
         String idsStr = StringUtils.collectionToCommaDelimitedString(ids);
-        List<Long> borrowIds = borrowMapper.getByBookIds(idsStr);
+        List<Integer> borrowIds = borrowMapper.getByBookIds(idsStr);
         if (borrowIds != null && borrowIds.size() > 0) {
             String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
             borrowMapper.deleteIds(borrowIdStr);
@@ -67,7 +67,7 @@ public class BookServiceimpl implements BookService {
     }
 
     @Override
-    public BookVO getById(Long id) {
+    public BookVO getById(Integer id) {
         return null;
     }
 
@@ -76,28 +76,28 @@ public class BookServiceimpl implements BookService {
         Book book = new Book();
         BeanUtils.copyProperties(book,bookDTO);
         //根据传过来的categoryName获得对应的id
-        Long categoryId = categoryMapper.getIdByName(bookDTO.getCategoryName());
+        Integer categoryId = categoryMapper.getIdByName(bookDTO.getCategoryName());
         book.setCategoryId(categoryId);
         bookMapper.update(book);
     }
 
     @Override
-    public List<Book> list(Long categoryId) {
+    public List<Book> list(Integer categoryId) {
         return null;
     }
 
     @Override
-    public void startOrStop(Integer status, Long id) {
+    public void startOrStop(Integer status, Integer id) {
 
     }
 
     @Override
-    public Book findById(Long bookId) {
+    public Book findById(Integer bookId) {
         return null;
     }
 
     @Override
-    public void returnBook(Long bookId) {
+    public void returnBook(Integer bookId) {
 
     }
 }

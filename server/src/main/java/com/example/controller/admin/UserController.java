@@ -62,7 +62,7 @@ public class UserController {
      */
     @DeleteMapping
     @ApiOperation("删除用户信息")
-    public Result delete(Long id){
+    public Result delete(Integer id){
         log.info("删除用户信息: {}",id);
         userService.delete(id);
         return Result.success();
@@ -105,7 +105,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     @ApiOperation("根据Id查询用户信息")
-    public Result<User> getById(@PathVariable Long id){//路径参数
+    public Result<User> getById(@PathVariable Integer id){//路径参数
         User user= userService.getById(id);
         return Result.success(user);
     }

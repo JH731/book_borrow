@@ -78,7 +78,7 @@ public class EmployeeController {
 
     @ApiOperation("根据id查询员工信息")
     @GetMapping("/{id}")
-    public Result<Employee> getById(@PathVariable Long id){//路径参数
+    public Result<Employee> getById(@PathVariable Integer id){//路径参数
         Employee employee = employeeService.getById(id);
         return Result.success(employee);
     }
@@ -90,7 +90,7 @@ public class EmployeeController {
      */
     @DeleteMapping
     @ApiOperation("删除员工信息")
-    public Result delete(Long id){
+    public Result delete(Integer id){
         log.info("删除员工信息: {}",id);
         employeeService.delete(id);
         return Result.success();
