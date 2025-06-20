@@ -71,8 +71,6 @@ public class BookServiceimpl implements BookService {
 //            String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
 //            borrowMapper.deleteIds(borrowIdStr);
             bookMapper.deleteByIds(idsStr);
-            log.error("书籍有借阅记录无法删除");
-            throw new DeletionNotAllowedException(MessageConstant.BOOK_BE_RELATED_BY_BORROW);
         }
 
     }
