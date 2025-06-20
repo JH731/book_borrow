@@ -83,7 +83,7 @@ public class BookServiceimpl implements BookService {
     @Override
     public void update(BookDTO bookDTO) {
         Book book = new Book();
-        BeanUtils.copyProperties(book,bookDTO);
+        BeanUtils.copyProperties(bookDTO,book);
         //根据传过来的categoryName获得对应的id
         Integer categoryId = categoryMapper.getIdByName(bookDTO.getCategoryName());
         book.setCategoryId(categoryId);
