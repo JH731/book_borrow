@@ -6,6 +6,7 @@ import com.example.dto.BookQueryDTO;
 import com.example.entity.Book;
 import com.example.entity.Employee;
 import com.example.exception.DeletionNotAllowedException;
+import com.example.exception.PasswordErrorException;
 import com.example.mapper.BookMapper;
 import com.example.mapper.BorrowMapper;
 import com.example.mapper.CategoryMapper;
@@ -15,6 +16,7 @@ import com.example.service.BookService;
 import com.example.vo.BookVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class BookServiceimpl implements BookService {
     @Autowired
@@ -61,9 +64,13 @@ public class BookServiceimpl implements BookService {
         if (borrowIds != null && borrowIds.size() > 0) {
             String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
             borrowMapper.deleteIds(borrowIdStr);
+            bookMapper.deleteByIds(idsStr);
+        }
+        else{
+            log.error("书籍有借阅记录无法删除");
+            throw new DeletionNotAllowedException(MessageConstant.BOOK_BE_RELATED_BY_BORROW);
         }
 
-        bookMapper.deleteByIds(idsStr);
     }
 
     @Override

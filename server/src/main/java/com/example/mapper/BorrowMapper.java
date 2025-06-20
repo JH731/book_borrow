@@ -62,7 +62,7 @@ public interface BorrowMapper {
     List<Integer> getByUserId(Integer id);
 
     @Select("SELECT id FROM book_borrow.borrow " +
-            "WHERE id IN (${idsStr})")
+            "WHERE book_id IN (${idsStr})")
     List<Integer> getByBookIds(String idsStr);
 
     @Delete("DELETE FROM book_borrow.borrow WHERE id IN (${borrowIdStr})")
