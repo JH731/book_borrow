@@ -37,12 +37,14 @@ public class BookServiceimpl implements BookService {
 
     @Override
     public void save(BookDTO bookDTO) {
+        log.info("开始执行 save 方法，入参 bookDTO: {}", bookDTO);
         Book book = new Book();
-        BeanUtils.copyProperties(book,bookDTO);
+        BeanUtils.copyProperties(bookDTO,book);
         //根据传过来的categoryName获得对应的id
         Integer categoryId = categoryMapper.getIdByName(bookDTO.getCategoryName());
         book.setCategoryId(categoryId);
         bookMapper.insert(book);
+        log.info("save 方法执行完毕，插入的 book: {}", book);
     }
 
     @Override
