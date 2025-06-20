@@ -64,11 +64,13 @@ public class BookServiceimpl implements BookService {
         String idsStr = StringUtils.collectionToCommaDelimitedString(ids);
         List<Integer> borrowIds = borrowMapper.getByBookIds(idsStr);
         if (borrowIds != null && borrowIds.size() > 0) {
-            String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
-            borrowMapper.deleteIds(borrowIdStr);
-            bookMapper.deleteByIds(idsStr);
+            log.error("书籍有借阅记录无法删除");
+            throw new DeletionNotAllowedException(MessageConstant.BOOK_BE_RELATED_BY_BORROW);
         }
         else{
+//            String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
+//            borrowMapper.deleteIds(borrowIdStr);
+            bookMapper.deleteByIds(idsStr);
             log.error("书籍有借阅记录无法删除");
             throw new DeletionNotAllowedException(MessageConstant.BOOK_BE_RELATED_BY_BORROW);
         }
