@@ -54,8 +54,6 @@ public class BackServiceimpl implements BackService {
 
     @Override
     public PageResult adminList(BackQueryDTO backQueryDTO) {
-        Integer userId = BaseContext.getCurrentId();
-        backQueryDTO.setUserId(userId);
         log.info("backQueryDTO: {}",backQueryDTO);
         PageHelper.startPage(backQueryDTO.getPage(),backQueryDTO.getPageSize());
         Page<BackVO> page = backMapper.list(backQueryDTO);
