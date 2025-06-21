@@ -14,13 +14,14 @@ import com.example.vo.BackVO;
 import com.example.vo.BorrowVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+@Slf4j
 @Service
 public class BackServiceimpl implements BackService {
     @Autowired
@@ -55,10 +56,12 @@ public class BackServiceimpl implements BackService {
     public PageResult adminList(BackQueryDTO backQueryDTO) {
         Integer userId = BaseContext.getCurrentId();
         backQueryDTO.setUserId(userId);
+        log.info("backQueryDTO: {}",backQueryDTO);
         PageHelper.startPage(backQueryDTO.getPage(),backQueryDTO.getPageSize());
         Page<BackVO> page = backMapper.list(backQueryDTO);
         long total = page.getTotal();
         List<BackVO> records = page.getResult();
+        log.info("查询返回的结果:{}",records);
         return new PageResult(total,records);
     }
 
