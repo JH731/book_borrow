@@ -14,12 +14,13 @@ import com.example.vo.BorrowStatisticVO;
 import com.example.vo.BorrowVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class BorrowServiceimpl implements BorrowService {
     @Autowired
@@ -30,10 +31,12 @@ public class BorrowServiceimpl implements BorrowService {
     public PageResult pageQuery(BorrowQueryDTO borrowQueryDTO) {
         Integer userId = BaseContext.getCurrentId();
         borrowQueryDTO.setUserId(userId);
+        log.info("borrowQueryDTO: {}",borrowQueryDTO);
         PageHelper.startPage(borrowQueryDTO.getPage(),borrowQueryDTO.getPageSize());
         Page<BorrowVO> page = borrowMapper.pageQuery(borrowQueryDTO);
         long total = page.getTotal();
         List<BorrowVO> records = page.getResult();
+        log.info("返回的查询结果: {}",records);
         return new PageResult(total,records);
     }
 
