@@ -69,10 +69,12 @@ public class BorrowServiceimpl implements BorrowService {
     public PageResult borrowList(BorrowQueryDTO borrowQueryDTO) {
         Integer userId = BaseContext.getCurrentId();
         borrowQueryDTO.setUserId(userId);
+        log.info("borrowQueryDTO: {}",borrowQueryDTO);
         PageHelper.startPage(borrowQueryDTO.getPage(),borrowQueryDTO.getPageSize());
-        Page<AdminBorrowVO> page = borrowMapper.borrowList(borrowQueryDTO);
+        Page<BorrowVO> page = borrowMapper.borrowList(borrowQueryDTO);
         long total = page.getTotal();
-        List<AdminBorrowVO> records = page.getResult();
+        List<BorrowVO> records = page.getResult();
+        log.info("返回的查询结果: {}",records);
         return new PageResult(total,records);
     }
 

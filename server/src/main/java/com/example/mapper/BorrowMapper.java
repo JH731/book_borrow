@@ -49,14 +49,14 @@ public interface BorrowMapper {
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
             "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
             "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
-            "WHERE bw.status = 0 " +
+            "WHERE 1 = 1 " +
             "  AND (#{userId} IS NULL OR bw.user_id = #{userId}) " +
             "  AND (#{userName} IS NULL OR bu.name = #{userName}) " +
             "  AND (#{categoryName} IS NULL OR ct.name = #{categoryName}) " +
             "  AND (#{categoryId} IS NULL OR bk.category_id = #{categoryId}) " +
             "  AND (#{startTime} IS NULL OR bw.start_time = #{startTime}) " +
             "  AND (#{endTime} IS NULL OR bw.end_time = #{endTime}) ")
-    Page<AdminBorrowVO> borrowList(BorrowQueryDTO borrowQueryDTO);
+    Page<BorrowVO> borrowList(BorrowQueryDTO borrowQueryDTO);
 
     @Select("SELECT id FROM book_borrow.borrow WHERE user_id = #{id}")
     List<Integer> getByUserId(Integer id);
