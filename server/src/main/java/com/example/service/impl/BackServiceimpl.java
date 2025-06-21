@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,6 +46,7 @@ public class BackServiceimpl implements BackService {
         backMapper.insert(back);
         //修改此时借阅记录的状态,不能重复归还
         Borrow borrow = borrowMapper.getById(back.getBrid());
+        borrow.setEndTime(LocalDateTime.now());
         borrow.setStatus(3);
         borrowMapper.update(borrow);
     }

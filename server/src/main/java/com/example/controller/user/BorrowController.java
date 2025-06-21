@@ -82,8 +82,6 @@ public class  BorrowController {
         record.setUserId(userID);
         record.setBookId(bookId);
         record.setStartTime(LocalDateTime.now());
-        //todo 先默认设置只可以借阅7天
-        record.setEndTime(LocalDateTime.now().plusDays(7));
         borrowService.save(record);
 
         return Result.success();

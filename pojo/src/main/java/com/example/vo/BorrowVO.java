@@ -19,6 +19,8 @@ public class BorrowVO extends Borrow implements Serializable {
     private String bookName;
     //书籍类别
     private String categoryName;
+    //借阅人
+    private String userName;
     //todo 借阅状态需要统一一下,1未归还,2待确认,3已归还
     private Integer status;
     //作者

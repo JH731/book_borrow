@@ -14,9 +14,8 @@ public interface BackMapper {
     @Select("SELECT bw.*, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition " +
             "FROM book_borrow.borrow bw " +
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
-            "WHERE bw.status = 1 " +
+            "WHERE bw.end_time is null " +
             "  AND ( #{userId} IS NULL OR bw.user_id = #{userId} ) " +
-            "  AND ( #{categoryId} IS NULL OR bk.category_id = #{categoryId} ) " +
             "  AND ( #{startTime} IS NULL OR bw.start_time = #{startTime} ) " +
             "  AND ( #{endTime} IS NULL OR bw.end_time = #{endTime} ) ")
     Page<BackVO> pageQuery(BackQueryDTO backQueryDTO);
