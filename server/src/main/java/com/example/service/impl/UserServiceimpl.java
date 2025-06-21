@@ -106,6 +106,8 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public void save(User user) {
+        String password = user.getPassword();
+        user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         userMapper.insert(user);
     }
 
