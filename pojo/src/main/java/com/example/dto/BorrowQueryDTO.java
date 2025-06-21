@@ -11,6 +11,9 @@ public class BorrowQueryDTO implements Serializable {
     private String userName;
     //书籍类别
     private String categoryName;
+
+    private Integer categoryId;
+
     private int page;
 
     private int pageSize;
