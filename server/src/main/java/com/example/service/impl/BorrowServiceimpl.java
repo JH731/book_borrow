@@ -67,8 +67,6 @@ public class BorrowServiceimpl implements BorrowService {
 
     @Override
     public PageResult borrowList(BorrowQueryDTO borrowQueryDTO) {
-        Integer userId = BaseContext.getCurrentId();
-        borrowQueryDTO.setUserId(userId);
         log.info("borrowQueryDTO: {}",borrowQueryDTO);
         PageHelper.startPage(borrowQueryDTO.getPage(),borrowQueryDTO.getPageSize());
         Page<BorrowVO> page = borrowMapper.borrowList(borrowQueryDTO);

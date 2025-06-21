@@ -70,8 +70,8 @@ public interface BorrowMapper {
 
 
     @Insert("INSERT INTO book_borrow.borrow (status, user_id, book_id, start_time, end_time, return_time) " +
-            "VALUES (#{borrow.status}, #{borrow.userId}, #{borrow.bookId}, " +
-            "NOW(), #{borrow.endTime}, #{borrow.returnTime})")
+            "VALUES (#{status}, #{userId}, #{bookId}, " +
+            "NOW(), #{endTime}, #{returnTime})")
     @Options(useGeneratedKeys = true, keyProperty = "borrow.id", keyColumn = "id")
     @AutoFill(value = OperationType.INSERT)
     void insert(Borrow borrow);
