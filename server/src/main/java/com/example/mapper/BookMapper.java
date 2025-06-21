@@ -31,8 +31,7 @@ public interface BookMapper {
             "WHERE b.stock > 0 " +
             "  AND ( #{name} IS NULL OR b.name LIKE CONCAT('%', #{name}, '%') ) " +
             "  AND ( #{categoryId} IS NULL OR b.category_id = #{categoryId} ) " +
-            "  AND ( #{categoryName} IS NULL OR c.name = #{categoryName} ) " +
-            "  AND ( #{status} IS NULL OR b.status = #{status} ) ")
+            "  AND ( #{categoryName} IS NULL OR c.name = #{categoryName} ) ")
     Page<BookVO> pageQuery(BookQueryDTO bookQueryDTO);
 
     @Select(

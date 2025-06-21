@@ -49,11 +49,13 @@ public class BookServiceimpl implements BookService {
 
     @Override
     public PageResult pageQuery(BookQueryDTO bookQueryDTO) {
+        log.info("传入参数为: {}",bookQueryDTO);
         PageHelper.startPage(bookQueryDTO.getPage(), bookQueryDTO.getPageSize());
         Page<BookVO> page = bookMapper.pageQuery(bookQueryDTO);
 
         long total = page.getTotal();
         List<BookVO> records = page.getResult();
+        log.info("查询返回的结果为: {}",records);
         return new PageResult(total,records);
     }
 
