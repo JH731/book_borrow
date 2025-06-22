@@ -69,10 +69,9 @@ public interface BorrowMapper {
     void deleteIds(String borrowIdStr);
 
 
-    @Insert("INSERT INTO book_borrow.borrow (status, user_id, book_id, start_time, end_time, return_time) " +
+    @Insert("INSERT INTO book_borrow.borrow (status, user_id, book_id, start_time) " +
             "VALUES (#{status}, #{userId}, #{bookId}, " +
-            "#{startTime}, #{endTime}, #{returnTime})")
-    @Options(useGeneratedKeys = true, keyProperty = "borrow.id", keyColumn = "id")
+            "#{startTime})")
     @AutoFill(value = OperationType.INSERT)
     void insert(Borrow borrow);
 }
