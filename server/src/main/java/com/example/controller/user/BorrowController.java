@@ -79,13 +79,15 @@ public class  BorrowController {
         BeanUtils.copyProperties(book,bookDTO);
         Category category = categoryMapper.getById(book.getCategoryId());
         bookDTO.setCategoryName(category.getName());
+        log.info("bookDTO: {}",bookDTO);
         bookService.save(bookDTO);
         Borrow record = new Borrow();
         record.setUserId(userID);
         record.setBookId(bookId);
+        record.setStatus(0);
         record.setStartTime(LocalDateTime.now());
+        log.info("Borrow: {}",record);
         borrowService.save(record);
-
         return Result.success();
     }
 
