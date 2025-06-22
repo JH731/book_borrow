@@ -21,7 +21,8 @@ public interface BorrowMapper {
             "  AND (#{userId} IS NULL OR bw.user_id = #{userId}) " +
             "  AND (#{categoryId} IS NULL OR bk.category_id = #{categoryId}) " +
             "  AND (#{startTime} IS NULL OR bw.start_time = #{startTime}) " +
-            "  AND (#{endTime} IS NULL OR bw.end_time = #{endTime}) ")
+            "  AND (#{endTime} IS NULL OR bw.end_time = #{endTime}) " +
+            "  AND (#{returnTime} IS NULL OR bw.return_time = #{returnTime}) ")
     Page<BorrowVO> pageQuery(BorrowQueryDTO borrowQueryDTO);
 
 

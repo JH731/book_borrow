@@ -5,6 +5,7 @@ import com.example.entity.BorrowDetail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -29,10 +30,11 @@ public class BorrowVO extends Borrow implements Serializable {
     private String publish;
     //第几版的书
     private String edition;
-    //借阅时间,申请时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
-    //截止日期
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
     //归还日期
-    private LocalDateTime returnTimee;
+    private LocalDateTime returnTime;
 }

@@ -18,7 +18,7 @@ public class BorrowQueryDTO implements Serializable {
 
     private int pageSize;
 
-    //借阅状态,1未归还,2待确认,3已归还
+    //借阅状态:0表示待通过 1表示通过 2拒绝
     private Integer status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
