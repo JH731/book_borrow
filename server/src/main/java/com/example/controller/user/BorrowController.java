@@ -86,6 +86,7 @@ public class  BorrowController {
         record.setBookId(bookId);
         record.setStatus(0);
         record.setStartTime(LocalDateTime.now());
+        record.setReturnTime(LocalDateTime.now().plusDays(7));
         log.info("Borrow: {}",record);
         borrowService.save(record);
         return Result.success();
