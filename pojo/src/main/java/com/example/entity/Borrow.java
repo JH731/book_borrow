@@ -26,6 +26,13 @@ public class Borrow implements Serializable {
     private LocalDateTime endTime;
     //归还日期
     private LocalDateTime returnTime;
-    //
+    
     private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
+
+    private Integer createUser;
+
+    private Integer updateUser;
+
 }
