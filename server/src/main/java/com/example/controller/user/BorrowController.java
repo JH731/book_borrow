@@ -45,7 +45,7 @@ public class  BorrowController {
      * @return
      */
     @ApiOperation("借阅记录分页查询")
-    @GetMapping("/pageQueryh")
+    @GetMapping("/pageQuery")
     public Result<PageResult> pageQuery(BorrowQueryDTO borrowQueryDTO){
         PageResult pageResult = borrowService.pageQuery(borrowQueryDTO);
         return Result.success(pageResult);

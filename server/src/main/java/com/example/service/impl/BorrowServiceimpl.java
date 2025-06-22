@@ -36,7 +36,7 @@ public class BorrowServiceimpl implements BorrowService {
         Page<BorrowVO> page = borrowMapper.pageQuery(borrowQueryDTO);
         long total = page.getTotal();
         List<BorrowVO> records = page.getResult();
-        log.info("返回的查询结果: {}",records);
+        log.info("返回的BorrowVO集合结果为: {}",records);
         return new PageResult(total,records);
     }
 
