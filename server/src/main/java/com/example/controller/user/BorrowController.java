@@ -3,11 +3,10 @@ package com.example.controller.user;
 import com.example.context.BaseContext;
 import com.example.dto.BookDTO;
 import com.example.dto.BorrowQueryDTO;
-import com.example.entity.Book;
-import com.example.entity.Borrow;
-import com.example.entity.BorrowDetail;
-import com.example.entity.User;
+import com.example.entity.*;
 import com.example.exception.BaseException;
+import com.example.mapper.BookMapper;
+import com.example.mapper.CategoryMapper;
 import com.example.result.PageResult;
 import com.example.result.Result;
 import com.example.service.BookService;
@@ -36,6 +35,8 @@ public class  BorrowController {
     private BookService bookService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
 
     /**
@@ -76,8 +77,9 @@ public class  BorrowController {
         book.setStock(book.getStock() - 1);
         BookDTO bookDTO = new BookDTO();
         BeanUtils.copyProperties(book,bookDTO);
+        Category category = categoryMapper.getById(book.getCategoryId());
+        bookDTO.setCategoryName(category.getName());
         bookService.save(bookDTO);
-
         Borrow record = new Borrow();
         record.setUserId(userID);
         record.setBookId(bookId);
