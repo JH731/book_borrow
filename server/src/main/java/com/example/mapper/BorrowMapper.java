@@ -20,7 +20,6 @@ public interface BorrowMapper {
             "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
             "WHERE 1 = 1 " +
             "  AND (#{userId} IS NULL OR bw.user_id = #{userId}) " +
-            "  AND (#{userName} IS NULL OR #{userName} = '' OR bu.name = #{userName}) " +
             "  AND (#{categoryName} IS NULL OR #{categoryName} = '' OR ct.name = #{categoryName}) " +
             "  AND (#{bookName} IS NULL OR #{bookName} = '' OR bk.name = #{bookName}) " +
             "  AND (#{categoryId} IS NULL OR bk.category_id = #{categoryId}) " +
