@@ -80,7 +80,7 @@ public class  BorrowController {
         Category category = categoryMapper.getById(book.getCategoryId());
         bookDTO.setCategoryName(category.getName());
         log.info("bookDTO: {}",bookDTO);
-        bookService.save(bookDTO);
+        bookService.update(bookDTO);
         Borrow record = new Borrow();
         record.setUserId(userID);
         record.setBookId(bookId);
