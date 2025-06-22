@@ -57,7 +57,8 @@ public class BorrowServiceimpl implements BorrowService {
 
     @Override
     public Integer getCurrentBorrowCount(Integer userID) {
-        return null;
+        List<Integer> ids = borrowMapper.getByUserId(userID);
+        return ids.size();
     }
 
     @Override

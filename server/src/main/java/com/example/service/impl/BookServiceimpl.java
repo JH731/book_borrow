@@ -104,7 +104,8 @@ public class BookServiceimpl implements BookService {
 
     @Override
     public Book findById(Integer bookId) {
-        return null;
+        Book book = bookMapper.getById(bookId);
+        return book;
     }
 
     @Override
