@@ -36,7 +36,7 @@ public class BackController {
      * @param id
      * @return
      */
-    @PostMapping("/allow")
+    @PostMapping("/allow/{id}")
     @ApiOperation("归还通过")
     public Result<String> allow(@PathVariable Integer id){
         backService.allow(id);

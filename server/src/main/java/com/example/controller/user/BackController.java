@@ -34,7 +34,7 @@ public class BackController {
 
 
     @ApiOperation("添加归还借阅记录")
-    @PostMapping("/add")
+    @PostMapping("/add/{id]")
     public Result add(@PathVariable Integer id){
         Back back = new Back();
         back.setBrid(id);

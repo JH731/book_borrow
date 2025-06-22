@@ -100,7 +100,7 @@ public class BookController {
      * @param categoryId
      * @return
      */
-    @GetMapping("/list")
+    @GetMapping("/list/{categoryId}")
     @ApiOperation("根据分类id查询书籍")
     public Result<List<Book>> list(@PathVariable Integer categoryId){
         List<Book> list = bookService.list(categoryId);

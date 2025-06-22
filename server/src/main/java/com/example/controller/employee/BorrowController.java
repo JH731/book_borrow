@@ -38,7 +38,7 @@ public class BorrowController {
      * @param id
      * @return
      */
-    @PostMapping("/allow")
+    @PostMapping("/allow/{id}")
     @ApiOperation("借阅通过")
     public Result<String> allow(@PathVariable Integer id){
         borrowService.allow(id);
@@ -50,7 +50,7 @@ public class BorrowController {
      * @param id
      * @return
      */
-    @PostMapping("/notAllow")
+    @PostMapping("/notAllow/{id}")
     @ApiOperation("借阅不通过")
     public Result<String> notAllow(@PathVariable Integer id){
         borrowService.notAllow(id);
