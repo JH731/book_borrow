@@ -30,10 +30,10 @@ public class BorrowVO extends Borrow implements Serializable {
     private String publish;
     //第几版的书
     private String edition;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private LocalDateTime startTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private LocalDateTime endTime;
     //归还日期
     private LocalDateTime returnTime;

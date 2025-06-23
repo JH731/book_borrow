@@ -23,10 +23,10 @@ public class BorrowQueryDTO implements Serializable {
     //借阅状态:0表示待通过 1表示通过 2拒绝
     private Integer status;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private LocalDateTime startTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private LocalDateTime endTime;
 
     private Integer userId;
