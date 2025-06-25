@@ -129,6 +129,9 @@ public class UserServiceimpl implements UserService {
         log.info("userDTO:{}",userDTO);
         User user = new User();
         BeanUtils.copyProperties(userDTO,user);
+        String password = user.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        user.setPassword(password);
         userMapper.update(user);
         log.info("user:{}",user);
     }
@@ -140,6 +143,9 @@ public class UserServiceimpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(userDTO,user);
         user.setId(userId);
+        String password = user.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        user.setPassword(password);
         userMapper.update(user);
         log.info("user:{}",user);
     }
