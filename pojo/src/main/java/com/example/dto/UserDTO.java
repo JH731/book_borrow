@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class UserDTO implements Serializable {
+    private Integer id;
     //姓名
     private String name;
     // md5加密存储

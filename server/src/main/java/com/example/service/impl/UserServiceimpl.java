@@ -124,9 +124,6 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public void update(UserDTO userDTO) {
-        Integer userId = BaseContext.getCurrentId();
-        userDTO.setUpdateUser(userId);
-        userDTO.setUpdateTime(LocalDateTime.now());
         User user = new User();
         BeanUtils.copyProperties(user,userDTO);
         userMapper.update(user);
@@ -135,8 +132,6 @@ public class UserServiceimpl implements UserService {
     @Override
     public void updateByself(UserDTO userDTO) {
         Integer userId = BaseContext.getCurrentId();
-        userDTO.setUpdateUser(userId);
-        userDTO.setUpdateTime(LocalDateTime.now());
         User user = new User();
         user.setId(userId);
         BeanUtils.copyProperties(user,userDTO);
