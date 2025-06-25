@@ -11,10 +11,7 @@ import com.example.dto.UserPageQueryDTO;
 import com.example.entity.Borrow;
 import com.example.entity.Employee;
 import com.example.entity.User;
-import com.example.exception.AccountLockedException;
-import com.example.exception.AccountNotFoundException;
-import com.example.exception.DeletionNotAllowedException;
-import com.example.exception.PasswordErrorException;
+import com.example.exception.*;
 import com.example.mapper.BorrowMapper;
 import com.example.mapper.UserMapper;
 import com.example.result.PageResult;
@@ -106,6 +103,10 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public void save(User user) {
+        User user1 = userMapper.getByUserName(user.getName());
+        if (user1 != null) {
+            throw new BaseException("该用户已重复");
+        }
         String password = user.getPassword();
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         userMapper.insert(user);

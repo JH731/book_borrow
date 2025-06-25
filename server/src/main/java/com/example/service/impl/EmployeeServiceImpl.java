@@ -10,6 +10,7 @@ import com.example.dto.EmployeePageQueryDTO;
 import com.example.entity.Employee;
 import com.example.exception.AccountLockedException;
 import com.example.exception.AccountNotFoundException;
+import com.example.exception.BaseException;
 import com.example.exception.PasswordErrorException;
 import com.example.mapper.EmployeeMapper;
 import com.example.result.PageResult;
@@ -74,6 +75,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void save(EmployeeDTO employeeDTO) {
         //转化DTO对象为实体类Employee对象然后再调用Mapper接口
         Employee employee = new Employee();
+
+        Employee employee1 = employeeMapper.getByUsername(employeeDTO.getName());
+        if (employee1 != null) {
+            throw new BaseException("该员工已重复");
+        }
 
         //使用对象属性拷贝,借助Spring的工具类BeanUtils
         BeanUtils.copyProperties(employeeDTO,employee);

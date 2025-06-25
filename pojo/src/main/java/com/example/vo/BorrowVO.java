@@ -31,10 +31,5 @@ public class BorrowVO extends Borrow implements Serializable {
     //第几版的书
     private String edition;
 
-    private LocalDateTime startTime;
-
-
-    private LocalDateTime endTime;
-    //归还日期
-    private LocalDateTime returnTime;
+    
 }

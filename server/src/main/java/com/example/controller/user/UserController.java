@@ -2,6 +2,7 @@ package com.example.controller.user;
 
 import com.example.constant.JwtClaimsConstant;
 import com.example.dto.RegisterDTO;
+import com.example.dto.UserDTO;
 import com.example.dto.UserLoginDTO;
 import com.example.entity.User;
 import com.example.properties.JwtProperties;
@@ -37,6 +38,20 @@ public class UserController {
     @PostMapping("/logout")
     @ApiOperation("用户登出")
     public Result<String> logout() {
+        return Result.success();
+    }
+
+
+    /**
+     * 编辑用户信息
+     * @param userDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("编辑用户信息")
+    public Result update(@RequestBody UserDTO userDTO){//JSON格式参数
+        log.info("编辑用户信息: {}",userDTO);
+        userService.update(userDTO);
         return Result.success();
     }
 
