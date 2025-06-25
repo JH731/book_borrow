@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.aliyun.oss.ServiceException;
 import com.example.context.BaseContext;
 import com.example.dto.BackQueryDTO;
 import com.example.entity.Back;
@@ -66,14 +67,39 @@ public class BackServiceimpl implements BackService {
     @Transactional
     @Override
     public void allow(Integer id) {
-        //先根据id查询back,然后修改back的状态status
+        // 1. 检查 back 是否存在
         Back back = backMapper.getById(id);
+        if (back == null) {
+            throw new ServiceException("归还记录不存在，ID: " + id);
+        }
+
+        // 2. 更新 back 状态
         back.setStatus(1);
         backMapper.update(back);
-        //然后查询borrow表获取bookId
-        Borrow borrow = borrowMapper.getById(back.getBrid());
-        //根据bookId获取到book对象,修改其中的stock属性
-        Book book = bookMapper.getById(borrow.getBookId());
+
+        // 3. 检查 borrow 记录是否存在
+        Integer borrowId = back.getBrid();
+        if (borrowId == null) {
+            throw new ServiceException("归还记录未关联借阅记录，ID: " + id);
+        }
+
+        Borrow borrow = borrowMapper.getById(borrowId);
+        if (borrow == null) {
+            throw new ServiceException("关联的借阅记录不存在，ID: " + borrowId);
+        }
+
+        // 4. 检查图书是否存在
+        Integer bookId = borrow.getBookId();
+        if (bookId == null) {
+            throw new ServiceException("借阅记录未关联图书，借阅ID: " + borrowId);
+        }
+
+        Book book = bookMapper.getById(bookId);
+        if (book == null) {
+            throw new ServiceException("关联的图书不存在，图书ID: " + bookId);
+        }
+
+        // 5. 安全更新库存
         book.setStock(book.getStock() + 1);
         bookMapper.update(book);
     }
