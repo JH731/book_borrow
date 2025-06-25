@@ -128,7 +128,7 @@ public class UserServiceimpl implements UserService {
     public void update(UserDTO userDTO) {
         log.info("userDTO:{}",userDTO);
         User user = new User();
-        BeanUtils.copyProperties(user,userDTO);
+        BeanUtils.copyProperties(userDTO,user);
         userMapper.update(user);
         log.info("user:{}",user);
     }
@@ -138,8 +138,8 @@ public class UserServiceimpl implements UserService {
         log.info("userDTO:{}",userDTO);
         Integer userId = BaseContext.getCurrentId();
         User user = new User();
+        BeanUtils.copyProperties(userDTO,user);
         user.setId(userId);
-        BeanUtils.copyProperties(user,userDTO);
         userMapper.update(user);
         log.info("user:{}",user);
     }
