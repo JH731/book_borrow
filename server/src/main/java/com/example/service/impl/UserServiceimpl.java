@@ -19,6 +19,7 @@ import com.example.result.Result;
 import com.example.service.UserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Slf4j
 public class UserServiceimpl implements UserService {
     @Autowired
     private UserMapper userMapper;
@@ -124,18 +126,22 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public void update(UserDTO userDTO) {
+        log.info("userDTO:{}",userDTO);
         User user = new User();
         BeanUtils.copyProperties(user,userDTO);
         userMapper.update(user);
+        log.info("user:{}",user);
     }
 
     @Override
     public void updateByself(UserDTO userDTO) {
+        log.info("userDTO:{}",userDTO);
         Integer userId = BaseContext.getCurrentId();
         User user = new User();
         user.setId(userId);
         BeanUtils.copyProperties(user,userDTO);
         userMapper.update(user);
+        log.info("user:{}",user);
     }
 
     @Override
