@@ -13,7 +13,7 @@ import java.util.List;
 
 @Mapper
 public interface BorrowMapper {
-    @Select("SELECT bw.id,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
+    @Select("SELECT bw.id,bw.status ,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
             "FROM book_borrow.borrow bw " +
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
             "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
@@ -41,7 +41,7 @@ public interface BorrowMapper {
     @AutoFill(value = OperationType.UPDATE)
     void update(Borrow borrow);
 
-    @Select("SELECT bw.id,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
+    @Select("SELECT bw.id,bw.status ,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
             "FROM book_borrow.borrow bw " +
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
             "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
