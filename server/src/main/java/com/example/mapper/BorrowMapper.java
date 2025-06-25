@@ -13,34 +13,34 @@ import java.util.List;
 
 @Mapper
 public interface BorrowMapper {
-    @Select("SELECT bw.id, bw.status, bw.start_time AS startTime, bw.end_time AS endTime, bw.return_time AS returnTime,\n" +
-            "       bk.name AS bookName, bk.author, bk.publish, bk.edition,\n" +
-            "       ct.name AS categoryName, bu.name AS userName\n" +
-            "FROM book_borrow.borrow bw\n" +
-            "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id\n" +
-            "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id\n" +
-            "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id\n" +
-            "WHERE (bw.status = 1 OR bw.status = 2)\n" +
-            "  AND (bw.user_id = COALESCE(#{userId}, bw.user_id))\n" +
-            "  AND (COALESCE(#{categoryName}, '') = '' OR ct.name = #{categoryName})\n" +
-            "  AND (COALESCE(#{bookName}, '') = '' OR bk.name LIKE CONCAT('%', #{bookName}, '%'))\n" +
-            "  AND (bk.category_id = COALESCE(#{categoryId}, bk.category_id))\n" +
-            "  AND (COALESCE(#{startTime}, CURRENT_DATE()) <= bw.start_time)\n" +
-            "  AND (COALESCE(#{endTime}, CURRENT_DATE() + INTERVAL 1 YEAR) >= bw.end_time)")
-    Page<BorrowVO> pageQuery(BorrowQueryDTO borrowQueryDTO);
-//    @Select("SELECT bw.id,bw.status ,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
-//            "FROM book_borrow.borrow bw " +
-//            "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
-//            "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
-//            "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
-//            "WHERE (bw.status = 1 OR bw.status = 2)" +
-//            "  AND (#{userId} IS NULL OR bw.user_id = #{userId}) " +
-//            "  AND (#{categoryName} IS NULL OR #{categoryName} = '' OR ct.name = #{categoryName}) " +
-//            "  AND (#{bookName} IS NULL OR #{bookName} = '' OR bk.name = #{bookName}) " +
-//            "  AND (#{categoryId} IS NULL OR bk.category_id = #{categoryId}) " +
-//            "  AND (#{startTime} IS NULL OR bw.start_time = #{startTime}) " +
-//            "  AND (#{endTime} IS NULL OR bw.end_time = #{endTime}) ")
+//    @Select("SELECT bw.id, bw.status, bw.start_time AS startTime, bw.end_time AS endTime, bw.return_time AS returnTime,\n" +
+//            "       bk.name AS bookName, bk.author, bk.publish, bk.edition,\n" +
+//            "       ct.name AS categoryName, bu.name AS userName\n" +
+//            "FROM book_borrow.borrow bw\n" +
+//            "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id\n" +
+//            "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id\n" +
+//            "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id\n" +
+//            "WHERE (bw.status = 1 OR bw.status = 2)\n" +
+//            "  AND (bw.user_id = COALESCE(#{userId}, bw.user_id))\n" +
+//            "  AND (COALESCE(#{categoryName}, '') = '' OR ct.name = #{categoryName})\n" +
+//            "  AND (COALESCE(#{bookName}, '') = '' OR bk.name LIKE CONCAT('%', #{bookName}, '%'))\n" +
+//            "  AND (bk.category_id = COALESCE(#{categoryId}, bk.category_id))\n" +
+//            "  AND (COALESCE(#{startTime}, CURRENT_DATE()) <= bw.start_time)\n" +
+//            "  AND (COALESCE(#{endTime}, CURRENT_DATE() + INTERVAL 1 YEAR) >= bw.end_time)")
 //    Page<BorrowVO> pageQuery(BorrowQueryDTO borrowQueryDTO);
+    @Select("SELECT bw.id,bw.status ,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
+            "FROM book_borrow.borrow bw " +
+            "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
+            "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
+            "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
+            "WHERE (bw.status = 1 OR bw.status = 2)" +
+            "  AND (#{userId} IS NULL OR bw.user_id = #{userId}) " +
+            "  AND (#{categoryName} IS NULL OR #{categoryName} = '' OR ct.name = #{categoryName}) " +
+            "  AND (#{bookName} IS NULL OR #{bookName} = '' OR bk.name = #{bookName}) " +
+            "  AND (#{categoryId} IS NULL OR bk.category_id = #{categoryId}) " +
+            "  AND (#{startTime} IS NULL OR bw.start_time = #{startTime}) " +
+            "  AND (#{endTime} IS NULL OR bw.end_time = #{endTime}) ")
+    Page<BorrowVO> pageQuery(BorrowQueryDTO borrowQueryDTO);
 
 
     @Select("SELECT id, status, user_id as userId, book_id as bookId, start_time as startTime, end_time as endTime, return_time as returnTime FROM book_borrow.borrow WHERE id = #{id}")
