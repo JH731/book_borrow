@@ -28,7 +28,7 @@ public interface BorrowMapper {
     Page<BorrowVO> pageQuery(BorrowQueryDTO borrowQueryDTO);
 
 
-    @Select("SELECT * FROM book_borrow.borrow WHERE id = #{id}")
+    @Select("SELECT id, status, user_id as userId, book_id as bookId, start_time as startTime, end_time as endTime, return_time as returnTime FROM book_borrow.borrow WHERE id = #{id}")
     Borrow getById(Integer id);
 
 

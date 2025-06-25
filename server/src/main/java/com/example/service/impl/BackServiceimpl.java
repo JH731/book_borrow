@@ -84,6 +84,7 @@ public class BackServiceimpl implements BackService {
         }
 
         Borrow borrow = borrowMapper.getById(borrowId);
+        log.info("Borrow: {}",borrow);
         if (borrow == null) {
             throw new ServiceException("关联的借阅记录不存在，ID: " + borrowId);
         }
