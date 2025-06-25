@@ -72,7 +72,6 @@ public class  BorrowController {
             throw new BaseException("用户已达到最大借阅数量");
         }
 
-        //todo 这些操作都是放在Service中进行的
         //更新库存并创建记录
         book.setStock(book.getStock() - 1);
         BookDTO bookDTO = new BookDTO();
