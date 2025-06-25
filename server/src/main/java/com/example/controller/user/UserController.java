@@ -51,7 +51,7 @@ public class UserController {
     @ApiOperation("编辑用户信息")
     public Result update(@RequestBody UserDTO userDTO){//JSON格式参数
         log.info("编辑用户信息: {}",userDTO);
-        userService.update(userDTO);
+        userService.updateByself(userDTO);
         return Result.success();
     }
 

@@ -29,6 +29,8 @@ public interface UserService {
 
     Result register(RegisterDTO dto);
 
+    void updateByself(UserDTO userDTO);
+
     void update(UserDTO userDTO);
 
     void delete(Integer id);
