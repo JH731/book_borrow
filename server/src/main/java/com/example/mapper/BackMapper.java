@@ -11,9 +11,11 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface BackMapper {
     // 借阅记录动态查询：参数非空时过滤，空时跳过
-    @Select("SELECT bw.*, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition " +
+    @Select("SELECT bw.id,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
             "FROM book_borrow.borrow bw " +
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
+            "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
+            "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
             "WHERE bw.status = 1" +
             "  AND ( #{userId} IS NULL OR bw.user_id = #{userId} ) " +
             "  AND ( #{startTime} IS NULL OR bw.start_time = #{startTime} ) " +
@@ -26,17 +28,12 @@ public interface BackMapper {
     void insert(Back back);
 
     // 归还记录动态查询：参数非空时范围过滤，空时跳过
-    @Select("SELECT " +
-            "bc.id AS id, " +
-            "bk.name AS bookName, " +
-            "bu.name AS userName, " +
-            "bc.status AS status, " +
-            "bw.start_time, " +
-            "bw.end_time " +
+    @Select("SELECT bw.id,bw.start_time as startTime,bw.end_time as endTime,bw.return_time as returnTime, bk.name as bookName, bk.author as author, bk.publish as publish, bk.edition as edition, ct.name AS categoryName, bu.name as userName " +
             "FROM book_borrow.back bc " +
             "LEFT JOIN book_borrow.borrow bw ON bc.brid = bw.id " +
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
             "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
+            "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
             "WHERE bc.status = 0 " +
             "  AND ( #{userId} IS NULL OR bw.user_id = #{userId} ) " +
             "  AND ( #{startTime} IS NULL OR bw.start_time >= #{startTime} ) " +

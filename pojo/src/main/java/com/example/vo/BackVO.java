@@ -16,6 +16,7 @@ public class BackVO extends Borrow implements Serializable {
     private String userName;
     //借阅书籍
     private String bookName;
+    private String categoryName;
     // 借阅状态,1未归还,2待确认,3已归还
     private Integer status;
     //作者
@@ -24,6 +25,4 @@ public class BackVO extends Borrow implements Serializable {
     private String publish;
     //第几版的书
     private String edition;
-    //借阅时间
-    private LocalDateTime startTime;
 }
