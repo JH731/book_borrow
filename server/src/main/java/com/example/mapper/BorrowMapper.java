@@ -71,4 +71,7 @@ public interface BorrowMapper {
             "#{startTime},#{returnTime})")
     @AutoFill(value = OperationType.INSERT)
     void insert(Borrow borrow);
+
+    @Delete("DELETE FROM book_borrow.borrow WHERE id  = #{borrowId}")
+    void deleteById(Integer borrowId);
 }
