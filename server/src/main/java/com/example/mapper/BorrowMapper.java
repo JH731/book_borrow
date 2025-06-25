@@ -58,6 +58,9 @@ public interface BorrowMapper {
     @Select("SELECT id FROM book_borrow.borrow WHERE user_id = #{id}")
     List<Integer> getByUserId(Integer id);
 
+    @Select("SELECT id FROM book_borrow.borrow WHERE user_id = #{id} and status = 1")
+    List<Integer> getCurSizeByUserId(Integer id);
+
     @Select("SELECT id FROM book_borrow.borrow " +
             "WHERE book_id IN (${idsStr})")
     List<Integer> getByBookIds(String idsStr);

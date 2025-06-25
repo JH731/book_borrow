@@ -103,6 +103,7 @@ public class BackServiceimpl implements BackService {
         // 5. 安全更新库存
         book.setStock(book.getStock() + 1);
         bookMapper.update(book);
-        borrowMapper.deleteById(borrowId);
+        borrow.setStatus(2);
+        borrowMapper.update(borrow);
     }
 }
