@@ -46,8 +46,8 @@ public interface BackMapper {
     // 归还记录动态更新：非空字段更新，空字段保留
     @Update("UPDATE book_borrow.back " +
             "SET " +
-            "brid = CASE WHEN #{brid} IS NOT NULL THEN #{brid} ELSE brid END, " +
-            "status = CASE WHEN #{status} IS NOT NULL THEN #{status} ELSE status END " +
+            "brid =  #{brid} , " +
+            "status =  #{status}  " +
             "WHERE id = #{id}")
     @AutoFill(value = OperationType.UPDATE)
     void update(Back back);
