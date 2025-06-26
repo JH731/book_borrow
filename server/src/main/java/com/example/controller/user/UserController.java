@@ -1,9 +1,11 @@
 package com.example.controller.user;
 
 import com.example.constant.JwtClaimsConstant;
+import com.example.context.BaseContext;
 import com.example.dto.RegisterDTO;
 import com.example.dto.UserDTO;
 import com.example.dto.UserLoginDTO;
+import com.example.entity.Employee;
 import com.example.entity.User;
 import com.example.properties.JwtProperties;
 import com.example.result.Result;
@@ -53,6 +55,12 @@ public class UserController {
         log.info("编辑用户信息: {}",userDTO);
         userService.updateByself(userDTO);
         return Result.success();
+    }
+    @GetMapping
+    @ApiOperation("查询自己的信息")
+    public Result<User> getById() {
+        User user = userService.getById(BaseContext.getCurrentId());
+        return Result.success(user);
     }
 
 }

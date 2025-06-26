@@ -159,7 +159,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getById(Integer id) {
         Employee employee = employeeMapper.getById(id);
         //隐藏密码,不让前端看到
-        employee.setPassword("****");
+//        employee.setPassword("****");
         return employee;
     }
 

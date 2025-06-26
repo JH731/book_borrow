@@ -77,7 +77,7 @@ public class UserServiceimpl implements UserService {
     public User getById(Integer userID) {
         User user = userMapper.getById(userID);
         //隐藏密码
-        user.setPassword("****");
+//        user.setPassword("****");
         return user;
     }
 

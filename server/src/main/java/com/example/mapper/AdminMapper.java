@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Select;
 public interface AdminMapper {
     @Select("SELECT id ,name as userName,password FROM book_borrow.admin WHERE name = #{userName}")
     Admin getByUserName(String userName);
+    @Select("SELECT id ,name as userName,password FROM book_borrow.admin WHERE id = #{id}")
+    Admin getByUserId(Integer id);
 }

@@ -2,6 +2,7 @@ package com.example.controller.admin;
 
 import com.example.dto.AdminDTO;
 import com.example.dto.EmployeeDTO;
+import com.example.entity.Admin;
 import com.example.result.Result;
 import com.example.service.AdminService;
 import io.swagger.annotations.Api;
@@ -42,6 +43,13 @@ public class AdminController {
     @ApiOperation("员工登出")
     public Result<String> logout() {
         return Result.success();
+    }
+
+    @GetMapping
+    @ApiOperation("查询自己的信息")
+    public Result<Admin> getById() {
+        Admin admin = adminService.getById();
+        return Result.success(admin);
     }
 
 
