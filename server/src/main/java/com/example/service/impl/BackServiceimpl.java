@@ -74,8 +74,10 @@ public class BackServiceimpl implements BackService {
         }
 
         // 2. 更新 back 状态
+        log.info("修改back状态为1");
         back.setStatus(1);
         backMapper.update(back);
+        log.info("back: {}",back);
 
         // 3. 检查 borrow 记录是否存在
         Integer borrowId = back.getBrid();
