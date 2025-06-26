@@ -131,6 +131,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         //使用对象属性拷贝的工具类BeanUtils
         BeanUtils.copyProperties(employeeDTO,employee);
+        Integer currentId = BaseContext.getCurrentId();
+        Employee employee1 = employeeMapper.getById(currentId);
+        Employee employee2 = employeeMapper.getByUsername(employee.getName());
+        if (employee2 != null) {
+            if (employee1 != employee2) {
+                //此时说明对应的名字已经存在数据库中了,并且是别人的信息
+                throw new BaseException("该员工名已被别人创建");
+            }
+        }
+        String password = employee.getPassword();
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        employee.setPassword(password);
 
 //        //由于我们执行的是修改操作,所以需要重新更新员工的updateTime和updateUser两个属性
 //        employee.setUpdateTime(LocalDateTime.now());

@@ -129,6 +129,14 @@ public class UserServiceimpl implements UserService {
         log.info("userDTO:{}",userDTO);
         User user = new User();
         BeanUtils.copyProperties(userDTO,user);
+        User user1 = userMapper.getById(user.getId());
+        User user2 = userMapper.getByUserName(user.getName());
+        if (user2 != null) {
+            if (user1 != user) {
+                //此时说明对应的名字已经存在数据库中了,并且是别人的信息
+                throw new BaseException("该用户名已被别人创建");
+            }
+        }
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         user.setPassword(password);
@@ -143,6 +151,14 @@ public class UserServiceimpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(userDTO,user);
         user.setId(userId);
+        User user1 = userMapper.getById(userId);
+        User user2 = userMapper.getByUserName(user.getName());
+        if (user2 != null) {
+            if (user1 != user) {
+                //此时说明对应的名字已经存在数据库中了,并且是别人的信息
+                throw new BaseException("该用户名已被别人创建");
+            }
+        }
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         user.setPassword(password);
@@ -157,7 +173,7 @@ public class UserServiceimpl implements UserService {
         //根据用户id查询是否有关联的借阅id
         List<Integer> borrowIds = borrowMapper.getCurSizeByUserId(id);
         if (borrowIds != null && borrowIds.size() > 0) {
-            throw new BaseException(MessageConstant.USER_BE_RELATED_BY_BORROW)
+            throw new BaseException(MessageConstant.USER_BE_RELATED_BY_BORROW);
 //            for (int i = 0; i < borrowIds.size(); i++) {
 //                borrowMapper.deleteById(borrowIds.get(i));
 //            }
