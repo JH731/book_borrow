@@ -55,7 +55,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/employee/**");
 
         registry.addInterceptor(jwtTokenInterceptor)
-                .excludePathPatterns("/login/**");
+                .addPathPatterns("login/**")
+                .excludePathPatterns("/login/login");
     }
 
     /**
