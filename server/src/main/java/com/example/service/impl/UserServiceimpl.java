@@ -157,13 +157,8 @@ public class UserServiceimpl implements UserService {
         //根据用户id查询是否有关联的借阅id
         List<Integer> borrowIds = borrowMapper.getByUserId(id);
         if (borrowIds != null && borrowIds.size() > 0) {
-            if (borrowIds.size() > 1) {
-                // List<Long> → "1,2,3" 格式的字符串
-                String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
-                borrowMapper.deleteIds(borrowIdStr);
-            }
-            else {
-                borrowMapper.deleteById(borrowIds.get(0));
+            for (int i = 0; i < borrowIds.size(); i++) {
+                borrowMapper.deleteById(borrowIds.get(i));
             }
         }
         userMapper.delete(id);
