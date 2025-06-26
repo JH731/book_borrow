@@ -155,15 +155,18 @@ public class UserServiceimpl implements UserService {
     public void delete(Integer id) {
         //需要先判断当前的用户是否有关联的借阅记录,如果有就需要不能删除
         //根据用户id查询是否有关联的借阅id
-        List<Integer> borrowIds = borrowMapper.getByUserId(id);
+        List<Integer> borrowIds = borrowMapper.getCurSizeByUserId(id);
         if (borrowIds != null && borrowIds.size() > 0) {
-            for (int i = 0; i < borrowIds.size(); i++) {
-                borrowMapper.deleteById(borrowIds.get(i));
-            }
+            throw new BaseException(MessageConstant.USER_BE_RELATED_BY_BORROW)
+//            for (int i = 0; i < borrowIds.size(); i++) {
+//                borrowMapper.deleteById(borrowIds.get(i));
+//            }
         }
-        log.info("开始删除用户: {}", id);
-        userMapper.delete(id);
-        log.info("用户删除成功: {}", id);
+        else {
+            log.info("开始删除用户: {}", id);
+            userMapper.delete(id);
+            log.info("用户删除成功: {}", id);
+        }
     }
 
 //    @Override
