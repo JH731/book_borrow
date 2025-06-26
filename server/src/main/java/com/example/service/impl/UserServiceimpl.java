@@ -153,13 +153,18 @@ public class UserServiceimpl implements UserService {
     @Override
     @Transactional
     public void delete(Integer id) {
-        //需要先判断当前的用户是否有关联的借阅记录,如果有就不能删除
+        //需要先判断当前的用户是否有关联的借阅记录,如果有就需要不能删除
         //根据用户id查询是否有关联的借阅id
         List<Integer> borrowIds = borrowMapper.getByUserId(id);
         if (borrowIds != null && borrowIds.size() > 0) {
-            // List<Long> → "1,2,3" 格式的字符串
-            String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
-            borrowMapper.deleteIds(borrowIdStr);
+            if (borrowIds.size() > 1) {
+                // List<Long> → "1,2,3" 格式的字符串
+                String borrowIdStr = StringUtils.collectionToCommaDelimitedString(borrowIds);
+                borrowMapper.deleteIds(borrowIdStr);
+            }
+            else {
+                borrowMapper.deleteById(borrowIds.get(0));
+            }
         }
         userMapper.delete(id);
     }
