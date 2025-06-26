@@ -104,6 +104,6 @@ public class BackServiceimpl implements BackService {
         book.setStock(book.getStock() + 1);
         bookMapper.update(book);
 //        borrow.setStatus(3);
-        borrowMapper.update(borrow);
+//        borrowMapper.update(borrow);
     }
 }
