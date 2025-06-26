@@ -161,7 +161,9 @@ public class UserServiceimpl implements UserService {
                 borrowMapper.deleteById(borrowIds.get(i));
             }
         }
+        log.info("开始删除用户: {}", id);
         userMapper.delete(id);
+        log.info("用户删除成功: {}", id);
     }
 
 //    @Override
