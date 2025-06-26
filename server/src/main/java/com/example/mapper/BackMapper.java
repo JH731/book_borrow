@@ -34,7 +34,7 @@ public interface BackMapper {
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
             "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
             "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
-            "WHERE bc.status = 0 " +
+            "WHERE bc.status = 0 and bu.name is not null" +
             "  AND ( #{userId} IS NULL OR bw.user_id = #{userId} ) " +
             "  AND ( #{startTime} IS NULL OR bw.start_time >= #{startTime} ) " +
             "  AND ( #{endTime} IS NULL OR bw.end_time <= #{endTime} ) ")
