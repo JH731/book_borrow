@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * 管理端相关接口
  */
 @RestController("EmployeeController")
-@RequestMapping("/employee")
+@RequestMapping("/employee/employee")
 @Api("员工相关接口")
 @Slf4j
 public class EmployeeController {
