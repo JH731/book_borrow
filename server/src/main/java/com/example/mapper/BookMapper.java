@@ -30,6 +30,8 @@ public interface BookMapper {
             "LEFT JOIN book_borrow.category c ON b.category_id = c.id " +
             "WHERE b.stock > 0 " +
             "  AND ( #{name} IS NULL OR b.name LIKE CONCAT('%', #{name}, '%') ) " +
+            "  AND ( #{author} IS NULL OR b.author LIKE CONCAT('%', #{author}, '%') ) " +
+            "  AND ( #{publish} IS NULL OR b.publish LIKE CONCAT('%', #{publish}, '%') ) " +
             "  AND ( #{categoryId} IS NULL OR b.category_id = #{categoryId} ) " +
             "  AND ( #{categoryName} IS NULL OR c.name = #{categoryName} ) ")
     Page<BookVO> pageQuery(BookQueryDTO bookQueryDTO);

@@ -33,10 +33,12 @@ public interface BorrowMapper {
             "LEFT JOIN book_borrow.book bk ON bw.book_id = bk.id " +
             "LEFT JOIN book_borrow.category ct ON bk.category_id = ct.id " +
             "LEFT JOIN book_borrow.user bu ON bw.user_id = bu.id " +
-            "WHERE (bw.status = 1 OR bw.status = 2)" +
+            "WHERE 1 = 1" +
             "  AND (#{userId} IS NULL OR bw.user_id = #{userId}) " +
             "  AND (#{categoryName} IS NULL OR #{categoryName} = '' OR ct.name = #{categoryName}) " +
             "  AND (#{bookName} IS NULL OR #{bookName} = '' OR bk.name = #{bookName}) " +
+            "  AND ( #{author} IS NULL OR bk.author LIKE CONCAT('%', #{author}, '%') ) " +
+            "  AND ( #{publish} IS NULL OR bk.publish LIKE CONCAT('%', #{publish}, '%') ) " +
             "  AND (#{categoryId} IS NULL OR bk.category_id = #{categoryId}) " +
             "  AND (#{startTime} IS NULL OR bw.start_time = #{startTime}) " +
             "  AND (#{endTime} IS NULL OR bw.end_time = #{endTime}) ")
