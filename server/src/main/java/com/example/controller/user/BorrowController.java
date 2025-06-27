@@ -7,6 +7,7 @@ import com.example.entity.*;
 import com.example.exception.BaseException;
 import com.example.mapper.BookMapper;
 import com.example.mapper.CategoryMapper;
+import com.example.mapper.UserMapper;
 import com.example.result.PageResult;
 import com.example.result.Result;
 import com.example.service.BookService;
@@ -35,6 +36,8 @@ public class  BorrowController {
     private BookService bookService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private CategoryMapper categoryMapper;
 
@@ -68,7 +71,7 @@ public class  BorrowController {
         if (book.getStock() <= 0) {
             throw new BaseException("图书库存不足");
         }
-        if (borrowService.getCurrentBorrowCount(userID) >= user.getMaxBorrow()) {
+        if (borrowService.getCurrentBorrowCount(userID) >= userMapper.getMaxBorrowById(userID)) {
             throw new BaseException("用户已达到最大借阅数量");
         }
 
@@ -83,7 +86,7 @@ public class  BorrowController {
         Borrow record = new Borrow();
         record.setUserId(userID);
         record.setBookId(bookId);
-        record.setStatus(0);
+        record.setStatus(1);
         record.setStartTime(LocalDateTime.now());
         record.setReturnTime(LocalDateTime.now().plusDays(7));
         log.info("Borrow: {}",record);

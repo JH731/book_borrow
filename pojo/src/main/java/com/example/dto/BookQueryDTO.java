@@ -18,4 +18,7 @@ public class BookQueryDTO implements Serializable {
 
     private String categoryName;
 
+    private String author;
+    private String publish;
+
 }

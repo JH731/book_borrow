@@ -62,4 +62,7 @@ public interface UserMapper{
 
     @Delete("DELETE FROM book_borrow.user WHERE id = #{id}")
     void delete(Integer id);
+
+    @Select("select  max_borrow from book_borrow.user where id = #{userID}")
+    Integer getMaxBorrowById(Integer userID);
 }

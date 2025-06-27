@@ -47,5 +47,5 @@ public class User implements Serializable {
     private Integer updateUser;
 
     //最大可借阅数量就设置为3
-    private Integer maxBorrow = 3;
+    private Integer maxBorrow;
 }

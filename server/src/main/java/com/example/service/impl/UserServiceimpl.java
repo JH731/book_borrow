@@ -137,6 +137,9 @@ public class UserServiceimpl implements UserService {
                 throw new BaseException("该用户名已被别人创建");
             }
         }
+        if (user.getMaxBorrow() == 0 ) {
+            user.setMaxBorrow(3);
+        }
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         user.setPassword(password);
