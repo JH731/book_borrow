@@ -45,6 +45,7 @@ public class BackServiceimpl implements BackService {
     @Transactional
     @Override
     public void save(Back back) {
+        back.setStatus(0);
         backMapper.insert(back);
         //修改此时借阅记录的状态,不能重复归还
         Borrow borrow = borrowMapper.getById(back.getBrid());
