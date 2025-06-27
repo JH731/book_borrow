@@ -40,7 +40,7 @@ public interface BackMapper {
             "  AND ( #{endTime} IS NULL OR bw.end_time <= #{endTime} ) ")
     Page<BackVO> list(BackQueryDTO backQueryDTO);
 
-    @Select("SELECT id, brid, status FROM book_borrow.back WHERE id = #{id}")
+    @Select("SELECT id, brid, status FROM book_borrow.back WHERE id = #{id} and status = 0")
     Back getById(Integer id);
 
     // 归还记录动态更新：非空字段更新，空字段保留

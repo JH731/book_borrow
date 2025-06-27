@@ -69,8 +69,9 @@ public class BackServiceimpl implements BackService {
     public void allow(Integer id) {
         // 1. 检查 back 是否存在
         Back back = backMapper.getById(id);
+        log.info("Back: {}",back);
         if (back == null) {
-            throw new ServiceException("归还记录不存在，ID: " + id);
+            throw new ServiceException("需要申请的归还记录不存在或已归还，ID: " + id);
         }
 
         // 2. 更新 back 状态
