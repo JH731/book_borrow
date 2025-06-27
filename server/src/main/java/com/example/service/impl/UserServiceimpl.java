@@ -114,6 +114,7 @@ public class UserServiceimpl implements UserService {
         }
         String password = user.getPassword();
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        log.info("User: {}",user);
         userMapper.insert(user);
     }
 
@@ -141,8 +142,9 @@ public class UserServiceimpl implements UserService {
             }
         }
         if (user.getMaxBorrow() == 0 ) {
-            user.setMaxBorrow(user1.getMaxBorrow());
+            user.setMaxBorrow(userMapper.getMaxBorrowById(user.getId()));
         }
+        log.info("User: {}",user);
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         user.setPassword(password);
