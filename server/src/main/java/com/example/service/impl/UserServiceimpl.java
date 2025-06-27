@@ -109,6 +109,9 @@ public class UserServiceimpl implements UserService {
         if (user1 != null) {
             throw new BaseException("该用户已重复");
         }
+        if (user.getMaxBorrow() == 0 ) {
+            user.setMaxBorrow(3);
+        }
         String password = user.getPassword();
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         userMapper.insert(user);
@@ -138,7 +141,7 @@ public class UserServiceimpl implements UserService {
             }
         }
         if (user.getMaxBorrow() == 0 ) {
-            user.setMaxBorrow(3);
+            user.setMaxBorrow(user1.getMaxBorrow());
         }
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
