@@ -1,0 +1,46 @@
+
+.anc-search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.anc-search-bar input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+}
+
+.anc-btn-fix-return {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.anc-btn-delete-record {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.anc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.anc-table th,
+.anc-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.anc-table th {
+    background-color: #f4f4f4;
+}
+

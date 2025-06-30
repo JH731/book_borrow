@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="zh - CN">
+
+<head>
+  <meta charset="UTF - 8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/main.css"> <!-- 引入外部CSS文件，需确保文件名正确且路径匹配 -->
+  <link rel="stylesheet" href="./css/content/borrow.css">
+  <link rel="stylesheet" href="./css/content/book.css">
+  <link rel="stylesheet" href="./css/content/anc.css">
+  <link rel="stylesheet" href="./css/content/reader.css">
+  <link rel="stylesheet" href="./css/content/type.css">
+  <link rel="stylesheet" href="./css/content/admin.css">
+  <link rel="stylesheet"
+    href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <script src="https://cdn.staticfile.net/jquery/1.10.2/jquery.min.js">
+  </script>
+  <title>福大图书管理系统</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <!-- Logo 区域 -->
+      <div class="logo">
+        <img src="./images/logo.png" alt="图书管理">
+        <span>图书馆管理系统</span>
+      </div>
+
+      <!-- 用户信息区域 -->
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">
+          <img src="images\logo1.png" alt="用户头像">
+          <p>以撒</p>
+          <i class="fa fa-angle-down"></i>
+        </div>
+
+        <!-- 用户下拉菜单 -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="user-profile">
+            <img src="images\logo1.png" alt="用户头像">
+            <div class="user-details">
+              <h3>以撒</h3>
+              <!-- <p>admin@library.com</p> -->
+            </div>
+          </div>
+          <hr>
+          <ul>
+            <li><a href="#" class="person-data"><i class="fa fa-user-circle"></i> 个人资料</a></li>
+            <li><a href="#"><i class="fa fa-cog"></i> 设置</a></li>
+            <li><a href="#" class="logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <!-- 左侧导航栏 -->
+    <div class="sidebar">
+      <ul class="nav">
+        <!-- 管理员侧边栏，加上show即可显示 -->
+        <ul class="sub-nav show" id="adminNav">
+          <li><a href="#" data-id=3><i class="fa fa-address-card"></i>读者管理</a></li>
+          <li><a href="#" data-id=6><i class="fa fa-user-circle"></i> 员工管理</a></li>
+        </ul>
+        <!-- 员工侧边栏，加上show即可显示 -->
+        <ul class="sub-nav" id="empNav">
+          <li><a href="#" data-id=1><i class="fa fa-folder"></i> 借阅管理</a></li>
+          <li><a href="#" data-id=2><i class="fa fa-book"></i> 图书管理</a></li>
+          <li><a href="#" data-id=4><i class="fa fa-file"></i> 类型管理</a></li>
+          <!-- <li><a href="#" data-id=5><i class="fa fa-bell"></i> 公告管理</a></li> -->
+        </ul>
+        <!-- 读者侧边栏，加上show即可显示 -->
+        <ul class="sub-nav" id="readerNav">
+          <li><a href="#" data-id="7"><i class="fa fa-folder"></i> 借阅查询</a></li>
+          <li><a href="#" data-id="8"><i class="fa fa-book"></i> 图书查询</a></li>
+          <!-- <li><a href="#" data-id="9"><i class="fa fa-address-card"></i> 收藏管理</a></li>
+          <li><a href="#" data-id="10"><i class="fa fa-bell"></i> 历史记录</a></li>
+          <li><a href="#" data-id="11"><i class="fa fa-user-circle"></i> 借阅排行榜</a></li> -->
+        </ul>
+      </ul>
+    </div>
+    <!-- 右侧主要内容区域 -->
+    <div class="main-content">
+      <div class="head">
+        <i class="fa fa-angle-right"></i>
+        <p><i class="fa fa-folder"></i>借阅管理</p>
+      </div>
+      <!-- 管理员借阅管理界面 -->
+      <div class="wrap-container">
+        <div class="wrap" id="contain1">
+          <div class="search-bar" id="searchBar1">
+            <!-- <input type="text" placeholder="借书卡"> -->
+            <input type="text" placeholder="读者名称">
+            <!-- <select id="borrowBookReturnSelect">
+              <option value="">归还类型 请选择</option>
+              <option value="0">未归还</option>
+              <option value="1">待确认</option>
+              <option value="2">已归还</option>
+            </select> -->
+            <select   id="borrowBookTypeSelect">
+              <option value=null>图书类型 请选择</option>
+            </select>
+            <button class="btn-search">搜索</button>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-borrow" id="addBorrowBtn">借书申请</button>
+            <button class="btn-return" id="addReturnBtn">还书申请</button>
+            <!-- <button class="btn-delete">删除</button> -->
+          </div>
+          <table class="book-table">
+            <thead>
+              <tr>
+                <!-- <th><input type="checkbox"></th> -->
+                <th>借阅人</th>
+                <th>图书名称</th>
+                <th>出版社信息</th>
+                <th>版本信息</th>
+                <th>作者</th>
+                <th>图书类别</th>
+                <th>开始时间</th>
+                <th>应还时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>游戏人生</td>
+                <td>小说</td>
+                <td>8120116042</td>
+                <td>空白</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td></td>
+                <td><span class="status-borrowing">在借中</span></td>
+                <td><button class="btn-abnormal-return">还书</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input class="pageIndex" type="text" value="1" size="2" readonly>
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input class="toPageIndex" type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共</span>
+            <span class="totalNum">5</span>
+            <span>条</span>
+            <select>
+              <option value="5">5条/页</option>
+              <option value="10">10条/页</option>
+              <option value="15">15条/页</option>
+            </select>
+          </div>
+          <div id="addBorrowModal" class="modal">
+            <div class="modal-content">
+              <h2>办理借书</h2>
+              <form id="addBorrowForm">
+                <div class="form-item">
+                  <label for="bookName">图书名称*</label>
+                  <input type="text" id="bookName" placeholder="请输入图书名称">
+                </div>
+                <div class="form-item">
+                  <label for="bookCategory">图书类别*</label>
+                  <select id="bookCategory">
+                    <option value="">请选择</option>
+                    <option value="科技">科技</option>
+                    <option value="历史">历史</option>
+                    <option value="经济">经济</option>
+                  </select>
+                </div>
+                <div class="form-item">
+                  <label for="borrowCard">借书卡*</label>
+                  <input type="text" id="borrowCard" placeholder="请输入借书卡号">
+                </div>
+                <div class="form-item">
+                  <label for="borrower">借阅人*</label>
+                  <input type="text" id="borrower" placeholder="请输入借阅人">
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="borrow-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="borrow-submitBtn" class="submitBtn">确认借书</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="fixBorrowModal" class="modal">
+            <div class="modal-content">
+              <h2>还书类型</h2>
+              <form id="fixBorrowForm">
+                <div class="form-item">
+                  <label for="normal">还书类型*</label>
+                  <select id="normal" required>
+                    <option value="">请选择</option>
+                    <option value="正常还书">正常还书</option>
+                    <option value="延迟还书">延迟还书</option>
+                    <option value="破损还书">破损还书</option>
+                    <option value="丢失赔书">丢失赔书</option>
+                  </select>
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="fix-borrow-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-borrow-submitBtn" class="submitBtn">完成修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      
+      
+        <!-- 管理员图书管理界面 -->
+        <div class="wrap" id="contain2">
+          <div class="search-bar" id="searchBar2">
+            <!-- <p>图书编号：</p><input type="text"> -->
+            <p>书名：</p><input type="text">
+            <select id="bookTypeSelect">
+              <option value="">图书类型 请选择</option>
+            </select>
+            <button class="btn-search">搜索</button>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-borrow" id="addBookBtn">添加</button>
+            <!-- <button class="btn-return">删除</button> -->
+      
+          </div>
+          <table class="book-table">
+            <thead>
+              <tr>
+                <!-- <th><input type="checkbox"></th> -->
+                <th>图书名称</th>
+                <th>出版社信息</th>
+                <th>版本信息</th>
+                <th>作者</th>
+                <th>图书类别</th>
+                <th>副本数</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>8120116042</td>
+                <td>苍之彼方的四重奏</td>
+                <td>小说</td>
+                <td>匿名</td>
+                <td>雪碧社</td>
+                <td>42</td>
+                <td>日文</td>
+                <td>5</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input class="pageIndex" type="text" value="1" size="2" readonly>
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input class="toPageIndex" type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共</span>
+            <span class="totalNum">5</span>
+            <span>条</span>
+            <select>
+              <option value="5">5条/页</option>
+              <option value="10">10条/页</option>
+              <option value="15">15条/页</option>
+            </select>
+          </div>
+          <div id="addBookModal" class="modal">
+            <div class="modal-content">
+              <h2>新增图书</h2>
+              <form id="addBookForm">
+                
+                <div class="form-item">
+                  <label for="bookName">图书名称*</label>
+                  <input type="text" id="bookName" placeholder="请输入图书名称">
+                </div>
+                <div class="form-item">
+                  <label for="publiser">出版社*</label>
+                  <input type="text" id="publiser" placeholder="请输入出版社">
+                </div>
+                <div class="form-item">
+                  <label for="edition">版本信息*</label>
+                  <input type="text" id="edition" placeholder="请输入版本信息">
+                </div>
+                <div class="form-item">
+                  <label for="author">作者*</label>
+                  <input type="text" id="author" placeholder="请输入作者">
+                </div>
+                <div class="form-item">
+                  <label for="bookCategory">图书类别*</label>
+                  <select id="bookCategory">
+                    <option value="">请选择</option>
+                    
+                  </select>
+                </div>
+                <div class="form-item">
+                  <label for="num">副本数*</label>
+                  <input type="text" id="num" placeholder="请输入副本数">
+                </div>
+      
+                <div class="btn-container">
+                  <button type="button" id="book-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="book-submitBtn" class="submitBtn">新增图书</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="fixBookModal" class="modal">
+            <div class="modal-content">
+              <h2>修改图书</h2>
+              <form id="fixBookForm">
+                <div class="form-item">
+                  <label for="bookName">图书名称*</label>
+                  <input type="text" id="bookName" placeholder="请输入图书名称">
+                </div>
+                <div class="form-item">
+                  <label for="publiser">出版社*</label>
+                  <input type="text" id="publiser" placeholder="请输入出版社">
+                </div>
+                <div class="form-item">
+                  <label for="edition">版本信息*</label>
+                  <input type="text" id="edition" placeholder="请输入版本信息">
+                </div>
+                <div class="form-item">
+                  <label for="author">作者*</label>
+                  <input type="text" id="author" placeholder="请输入作者">
+                </div>
+                <div class="form-item">
+                  <label for="bookCategory">图书类别*</label>
+                  <select id="bookCategory">
+                    <option value="">请选择</option>
+                    
+                  </select>
+                </div>
+                <div class="form-item">
+                  <label for="num">副本数*</label>
+                  <input type="text" id="num" placeholder="请输入副本数">
+                </div>
+      
+                <div class="btn-container">
+                  <button type="button" id="fix-book-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-book-submitBtn" class="submitBtn">保存修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- 管理员读者管理界面 -->
+        <div class="wrap" id="contain3">
+          <div class="anc-search-bar" id="searchBar3">
+            <!-- <select>
+              <option value="">违规状态 请选择</option>
+              <option value="正常">正常</option>
+              <option value="封禁">封禁</option>
+            </select> -->
+            <!-- <p>注册时间</p><input type="text" placeholder="请输入时间"> -->
+            <p>姓名</p><input type="text" placeholder="请输入姓名">
+            <button class="btn-search">立即查询</button>
+            <button class="btn-add" id="addReaderBtn">新增读者</button>
+          </div>
+          
+          <table class="book-table">
+            <thead>
+              <tr>
+                <!-- <th><input type="checkbox"></th> -->
+                <th>用户名</th>
+                <th>性别</th>
+                <th>手机号</th>
+                
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="images\logo1.png" class="headImage"></td>
+                <td>以撒</td>
+                <td>13559988151</td>
+                <td>2763843393@qq.com</td>
+                <td id="normal">正常</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images\logo1.png" class="headImage"></td>
+                <td>小蓝人</td>
+                <td>13559988152</td>
+                <td>2763843394@qq.com</td>
+                <td id="normal">封号</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images\logo1.png" class="headImage"></td>
+                <td>伯大尼</td>
+                <td>13559988153</td>
+                <td>2763843395@qq.com</td>
+                <td id="normal">正常</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images\logo1.png" class="headImage"></td>
+                <td>亚伯伦</td>
+                <td>13559988154</td>
+                <td>2763843396@qq.com</td>
+                <td id="normal">正常</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="images\logo1.png" class="headImage"></td>
+                <td>夏娃</td>
+                <td>13559988155</td>
+                <td>2763843397@qq.com</td>
+                <td id="normal">封号</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input class="pageIndex" type="text" value="1" size="2" readonly>
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input class="toPageIndex" type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共</span>
+            <span class="totalNum">5</span>
+            <span>条</span>
+            <select>
+              <option value="5">5条/页</option>
+              <option value="10">10条/页</option>
+              <option value="15">15条/页</option>
+            </select>
+          </div>
+          <div id="addReaderModal" class="modal">
+            <div class="modal-content">
+              <h2>新增类型</h2>
+              <form id="addReaderForm">
+                <label for="content">类型名称</label>
+                <textarea id="content" name="content" class="textA" required></textarea>
+                <div class="btn-container">
+                  <button type="button" id="reader-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="reader-submitBtn" class="submitBtn">保存类型</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="fixReaderModal" class="modal">
+            <div class="modal-content">
+              <h2>修改读者信息</h2>
+              <form id="fixReaderForm">
+                <div class="form-item">
+                  <label for="fempname">读者名称</label>
+                  <input type="text" id="fempname" placeholder="请输入读者名称(5~10位，可以包含大小写字母、数字和下划线)"></input>
+                </div>
+                <div class="form-item">
+                  <label>性别</label>
+                
+                  
+                  <input type="radio" id="male" name="gender" value="男" checked>
+                  <label for="male" id="tomale">男</label>
+                  <input type="radio" id="female" name="gender" value="女">
+                  <label for="female" id="tofemale">女</label>
+                  <span class="msg"></span>
+                
+                </div>
+                <div class="form-item">
+                  <label for="femppsd">读者密码</label>
+                  <input type="text" id="femppsd" placeholder="请输入读者密码(5~20位，可以包含大小写字母、数字和下划线)"></input>
+                </div>
+                <div class="form-item">
+                  <label for="fempphone">读者电话号码</label>
+                  <input type="text" id="fempphone" placeholder="请输入11位电话号码"></input>
+                </div>
+                <div class="form-item">
+                  <label for="fmaxBorrow">读者最大借阅数量</label>
+                  <input type="text" id="fmaxBorrow" placeholder="请输入读者最大借阅数量"></input>
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="fix-reader-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-reader-submitBtn" class="submitBtn">保存工作人员</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      
+      
+        <!-- 管理员类型管理界面 -->
+        <div class="wrap" id="contain4">
+          <div class="anc-search-bar" id="searchBar4">
+            <p>类别名</p><input type="text" placeholder="书籍类别名">
+            <button class="btn-search">立即查询</button>
+            <button class="btn-add" id="addTypeBtn">新增书籍类别</button>
+          </div>
+          <table class="book-table">
+            <thead>
+              <tr>
+                <!-- <th><input type="checkbox"></th> -->
+                <th>书籍类别名</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>历史</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>小说</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>文学</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>心理学</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>外国小说</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input class="pageIndex" type="text" value="1" size="2" readonly>
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input class="toPageIndex" type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共</span>
+            <span class="totalNum">5</span>
+            <span>条</span>
+            <select>
+              <option value="5">5条/页</option>
+              <option value="10">10条/页</option>
+              <option value="15">15条/页</option>
+            </select>
+          </div>
+          <div id="addTypeModal" class="modal">
+            <div class="modal-content">
+              <h2>新增类型</h2>
+              <form id="addTypeForm">
+                <label for="content">类型名称</label>
+                <textarea id="content" name="content" class="textA" required></textarea>
+                <div class="btn-container">
+                  <button type="button" id="type-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="type-submitBtn" class="submitBtn">保存类型</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="fixTypeModal" class="modal">
+            <div class="modal-content">
+              <h2>修改类型</h2>
+              <form id="addNoticeForm">
+                <label for="content">类型内容</label>
+                <textarea id="fixArea4" name="content" class="textA" required></textarea>
+                <div class="btn-container">
+                  <button type="button" id="fix-type-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-type-submitBtn" class="submitBtn">完成修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+        <!-- 管理员公告管理界面 -->
+        <div class="wrap" id="contain5">
+          <div class="anc-search-bar">
+            <p>公告标题:</p><input type="text" placeholder="请输入标题">
+            <label for="startTime">发布时间</label>
+            <input type="date" id="startTime" placeholder="开始时间">
+            <span>至</span>
+            <input type="date" id="endTime" placeholder="结束时间">
+            <button class="btn-search">立即查询</button>
+            <button class="btn-add" id="addNoticeBtn">新增公告</button>
+          </div>
+          <table class="book-table">
+            <thead>
+              <tr>
+                <!-- <th><input type="checkbox"></th> -->
+                <th>公告</th>
+                <th>发布时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>关于网站内容版权的严正声明</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-fix-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>全新面貌，更优体验——网站改版上线</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-fix-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>网站即将进行系统维护，服务暂停通知</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-fix-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>“乐正司百曲，绫动万年红”主题阅读活动开始通知</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-fix-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>《妄想症》书籍上架通知</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td><button class="btn-fix-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input type="text" value="1" size="2">
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共5条</span>
+            <select>
+              <option value="15">15条/页</option>
+              <option value="10">10条/页</option>
+              <option value="5">5条/页</option>
+            </select>
+          </div>
+          <div id="addNoticeModal" class="modal">
+            <div class="modal-content">
+              <h2>新增公告</h2>
+              <form id="addNoticeForm">
+                <label for="content">公告内容</label>
+                <textarea id="content" name="content" class="textA" required></textarea>
+                <div class="btn-container">
+                  <button type="button" id="cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="submitBtn" class="submitBtn">发布公告</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="fixNoticeModal" class="modal">
+            <div class="modal-content">
+              <h2>修改公告</h2>
+              <form id="addNoticeForm">
+                <label for="content">公告内容</label>
+                <textarea id="fixArea" name="content" class="textA" required></textarea>
+                <div class="btn-container">
+                  <button type="button" id="fix-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-submitBtn" class="submitBtn">完成修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- 管理员管理员管理界面 -->
+        <div class="wrap" id="contain6">
+          <div class="search-bar" id="searchBar6">
+            <p>用户名</p><input type="text" placeholder="请输入员工名称">
+            <!-- <select>
+              <option value="">管理员类型 请选择</option>
+              <option value="管理员">管理员</option>
+              <option value="工作人员">工作人员</option>
+            </select> -->
+            <button class="btn-search">搜索</button>
+          </div>
+          <div class="action-buttons">
+            <button id="addAdminBtn" class="btn-borrow">添加</button>
+            <!-- <button class="btn-return">删除</button> -->
+          </div>
+          <table class="book-table">
+            <thead>
+              <tr>
+                <th>用户名</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="width: 60px;"><img src="images\logo1.png" class="headImage"></td>
+                <td>以撒</td>
+                <td>管理员</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 60px;"><img src="images\logo1.png" class="headImage"></td>
+                <td>伯大尼</td>
+                <td>管理员</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 60px;"><img src="images\logo1.png" class="headImage"></td>
+                <td>抹大拉</td>
+                <td>工作人员</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input class="pageIndex" type="text" value="1" size="2" readonly>
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input class="toPageIndex" type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共</span>
+            <span class="totalNum">5</span>
+            <span>条</span>
+            <select>
+              <option value="5">5条/页</option>
+              <option value="10">10条/页</option>
+              <option value="15">15条/页</option>
+            </select>
+          </div>
+          <div id="addAdminModal" class="modal">
+            <div class="modal-content">
+              <h2>新增工作人员</h2>
+              <form id="addAdminForm">
+                <div class="form-item">
+                  <label for="empname">员工名称</label>
+                  <input type="text" id="empname" placeholder="请输入员工名称(5~10位，可以包含大小写字母、数字和下划线)"></input>
+                </div>
+                <div class="form-item">
+                  <label>性别</label>
+                
+                  
+                  <input type="radio" id="male" name="gender" value="男" checked>
+                  <label for="male" id="tomale">男</label>
+                  <input type="radio" id="female" name="gender" value="女">
+                  <label for="male" id="tofemale">女</label>
+                  <span class="msg"></span>
+                
+                </div>
+                <div class="form-item">
+                  <label for="emppsd">员工密码</label>
+                  <input type="text" id="emppsd" placeholder="请输入员工密码(5~20位，可以包含大小写字母、数字和下划线)"></input>
+                </div>
+                <div class="form-item">
+                  <label for="empphone">员工电话号码</label>
+                  <input type="text" id="empphone" placeholder="请输入11位电话号码"></input>
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="admin-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="admin-submitBtn" class="submitBtn">保存工作人员</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="fixAdminModal" class="modal">
+            <div class="modal-content">
+              <h2>修改工作人员信息</h2>
+              <form id="fixAdminForm">
+                <div class="form-item">
+                  <label for="fempname">员工名称</label>
+                  <input type="text" id="fempname" placeholder="请输入员工名称(5~10位，可以包含大小写字母、数字和下划线)"></input>
+                </div>
+                <div class="form-item">
+                  <label>性别</label>
+                
+                  
+                  <input type="radio" id="male" name="gender" value="男" checked>
+                  <label for="male" id="tomale">男</label>
+                  <input type="radio" id="female" name="gender" value="女">
+                  <label for="male" id="tofemale">女</label>
+                  <span class="msg"></span>
+                
+                </div>
+                <div class="form-item">
+                  <label for="femppsd">员工密码</label>
+                  <input type="text" id="femppsd" placeholder="请输入员工密码(5~20位，可以包含大小写字母、数字和下划线)"></input>
+                </div>
+                <div class="form-item">
+                  <label for="fempphone">员工电话号码</label>
+                  <input type="text" id="fempphone" placeholder="请输入11位电话号码"></input>
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="fix-admin-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-admin-submitBtn" class="submitBtn">保存工作人员</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- 用户借阅管理界面 -->
+        <!-- 读者借阅界面 -->
+        <div class="wrap" id="contain7">
+          <div class="search-bar" id="searchBar7">
+            <!-- <input type="text" placeholder="借书卡"> -->
+            <input type="text" id="readerBookName" placeholder="图书名称">
+            <input type="text" id="readerAuthorName" placeholder="作者名称">
+            <input type="text" id="readerPublishName" placeholder="出版社名称">
+            <!-- <select id="borrowRBookReturnSelect">
+              <option value="">归还类型 请选择</option>
+              <option value="未归还">未归还</option>
+              <option value="待确认">待确认</option>
+              <option value="已归还">已归还</option>
+            </select> -->
+            <select   id="borrowRBookTypeSelect">
+              <option value=null>图书类型 请选择</option>
+            </select>
+            <button class="btn-search">搜索</button>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-borrow" id="rAddBorrowBtn">借书记录</button>
+            <button class="btn-return" id="rAddReturnBtn">还书申请</button>
+            <!-- <button class="btn-delete">删除</button> -->
+          </div>
+          <table class="book-table">
+            <thead>
+              <tr>
+                <th>图书名称</th>
+                <th>出版社信息</th>
+                <th>版本信息</th>
+                <th>作者</th>
+                <th>图书类别</th>
+                <th>开始时间</th>
+                <th>应还时间</th>
+                
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>游戏人生</td>
+                <td>小说</td>
+                <td>8120116042</td>
+                <td>空白</td>
+                <td>2021 - 04 - 05 21:42:35</td>
+                <td></td>
+                <td><span class="status-borrowing">在借中</span></td>
+                <td><button class="btn-abnormal-return">还书</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input class="pageIndex" type="text" value="1" size="2" readonly>
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input class="toPageIndex" type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共</span>
+            <span class="totalNum">5</span>
+            <span>条</span>
+            <select>
+              <option value="5">5条/页</option>
+              <option value="10">10条/页</option>
+              <option value="15">15条/页</option>
+            </select>
+          </div>
+          <div id="rAddBorrowModal" class="modal">
+            <div class="modal-content">
+              <h2>办理借书</h2>
+              <form id="rAddBorrowForm">
+                <div class="form-item">
+                  <label for="bookName">图书名称*</label>
+                  <input type="text" id="bookName" placeholder="请输入图书名称">
+                </div>
+                <div class="form-item">
+                  <label for="bookCategory">图书类别*</label>
+                  <select id="bookCategory">
+                    <option value="">请选择</option>
+                    <option value="科技">科技</option>
+                    <option value="历史">历史</option>
+                    <option value="经济">经济</option>
+                  </select>
+                </div>
+                <div class="form-item">
+                  <label for="borrowCard">借书卡*</label>
+                  <input type="text" id="borrowCard" placeholder="请输入借书卡号">
+                </div>
+                <div class="form-item">
+                  <label for="borrower">借阅人*</label>
+                  <input type="text" id="borrower" placeholder="请输入借阅人">
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="rBorrow-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="rBorrow-submitBtn" class="submitBtn">确认借书</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="fixRBorrowModal" class="modal">
+            <div class="modal-content">
+              <h2>还书类型</h2>
+              <form id="fixRBorrowForm">
+                <div class="form-item">
+                  <label for="normal">还书类型*</label>
+                  <select id="normal" required>
+                    <option value="">请选择</option>
+                    <option value="正常还书">正常还书</option>
+                    <option value="延迟还书">延迟还书</option>
+                    <option value="破损还书">破损还书</option>
+                    <option value="丢失赔书">丢失赔书</option>
+                  </select>
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="fix-RBorrow-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-RBorrow-submitBtn" class="submitBtn">完成修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+          <div id="fixBorrowModal" class="modal">
+            <div class="modal-content">
+              <h2>还书类型</h2>
+              <form id="fixBorrowForm">
+                <div class="form-item">
+                  <label for="normal">还书类型*</label>
+                  <select id="normal" required>
+                    <option value="">请选择</option>
+                    <option value="正常还书">正常还书</option>
+                    <option value="延迟还书">延迟还书</option>
+                    <option value="破损还书">破损还书</option>
+                    <option value="丢失赔书">丢失赔书</option>
+                  </select>
+                </div>
+                <div class="btn-container">
+                  <button type="button" id="fix-borrow-cancelBtn" class="cancelBtn">取消</button>
+                  <button type="submit" id="fix-borrow-submitBtn" class="submitBtn">完成修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- 读者图书管理界面 -->
+        <div class="wrap" id="contain8">
+          <div class="search-bar" id="searchBar8">
+            <!-- <p>图书编号：</p><input type="text"> -->
+            <p>书名：</p><input id="readerBookName" type="text">
+            <p>作者名：</p><input id="readerAuthorName" type="text">
+            <p>出版社名：</p><input id="readerPublishName" type="text">
+            <select id="rBookTypeSelect">
+              <option value="">图书类型 请选择</option>
+            </select>
+            <button class="btn-search">搜索</button>
+          </div>
+          <!-- <div class="action-buttons">
+            <button class="btn-borrow" id="addBookBtn">添加</button>
+            <button class="btn-return">删除</button>
+      
+          </div> -->
+          <table class="book-table">
+            <thead>
+              <tr>
+                <th>图书名称</th>
+                <th>出版社信息</th>
+                <th>版本信息</th>
+                <th>作者</th>
+                <th>图书类别</th>
+                <th>副本数</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>8120116042</td>
+                <td>苍之彼方的四重奏</td>
+                <td>小说</td>
+                <td>匿名</td>
+                <td>雪碧社</td>
+                <td>42</td>
+                <td>日文</td>
+                <td>5</td>
+                <td><button class="btn-abnormal-return">修改</button><button class="btn-delete-record">删除</button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="prev-page">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <input class="pageIndex" type="text" value="1" size="2" readonly>
+            <button class="next-page">
+              <i class="fa fa-angle-left" style="transform: rotate(180deg);"></i>
+            </button>
+            <span>到第</span>
+            <input class="toPageIndex" type="text" value="1" size="2">
+            <span>页</span>
+            <button class="page-confirm">确定</button>
+            <span>共</span>
+            <span class="totalNum">5</span>
+            <span>条</span>
+            <select>
+              <option value="5">5条/页</option>
+              <option value="10">10条/页</option>
+              <option value="15">15条/页</option>
+            </select>
+          </div>
+          
+
+        
+        
+      </div>
+      
+      
+      <!-- From Uiverse.io by Nawsome -->
+      <div class="loader-wrap">
+        <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+          <div class="wheel"></div>
+          <div class="hamster">
+            <div class="hamster__body">
+              <div class="hamster__head">
+                <div class="hamster__ear"></div>
+                <div class="hamster__eye"></div>
+                <div class="hamster__nose"></div>
+              </div>
+              <div class="hamster__limb hamster__limb--fr"></div>
+              <div class="hamster__limb hamster__limb--fl"></div>
+              <div class="hamster__limb hamster__limb--br"></div>
+              <div class="hamster__limb hamster__limb--bl"></div>
+              <div class="hamster__tail"></div>
+            </div>
+          </div>
+          <div class="spoke"></div>
+        </div>
+      </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./js/general.js"></script>
+  <script src="./js/anc.js"></script>
+  <script src="./js/type.js"></script>
+  <script src="./js/borrow.js"></script>
+  <script src="./js/book.js"></script>
+  <script src="./js/admin.js"></script>
+  <script src="./js/reader.js"></script>
+  <script src="./js/rborrow.js"></script>
+  <script src="./js/rbook.js"></script>
+  <script>
+    $(window).on("load", function () {
+      $(".loader-wrap").fadeOut("slow")
+    })
+     
+    const token=localStorage.getItem('token')
+    const user = document.querySelector('.user-info')
+    user.addEventListener('mouseenter', function () {
+      const dropdown = document.querySelector('.user-dropdown')
+      dropdown.classList.add('show')
+    })
+    user.addEventListener('mouseleave', function () {
+      const dropdown = document.querySelector('.user-dropdown')
+      dropdown.classList.remove('show')
+    })
+    //初始化每个
+    const adminnavs = document.querySelector('.sub-nav#adminNav')
+    let showNavs=document.querySelector('#contain3')
+    document.querySelector('.head p').innerHTML = document.querySelector('#adminNav a:first-child').innerHTML;
+    adminnavs.addEventListener('click', function (e) {
+        if (e.target.tagName == 'A') {
+
+          let i = Number(e.target.dataset.id)
+          showNavs.classList.remove('show')
+          document.querySelector(`#contain${i}`).classList.add('show');
+          showNavs=document.querySelector(`#contain${i}`);
+          document.querySelector('.head p').innerHTML = e.target.innerHTML;
+          
+        }
+      })
+    const empnavs = document.querySelector('.sub-nav#empNav')
+    let empshowNavs=document.querySelector('#contain1')
+    document.querySelector('.head p').innerHTML = document.querySelector('#empNav a:first-child').innerHTML;
+    empnavs.addEventListener('click', function (e) {
+        if (e.target.tagName == 'A') {
+
+          let i = Number(e.target.dataset.id)
+          empshowNavs.classList.remove('show')
+          document.querySelector(`#contain${i}`).classList.add('show');
+          empshowNavs=document.querySelector(`#contain${i}`);
+          document.querySelector('.head p').innerHTML = e.target.innerHTML;
+          
+        }
+      })
+    const readernavs = document.querySelector('.sub-nav#readerNav')
+    let readershowNavs=document.querySelector('#contain7')
+    document.querySelector('.head p').innerHTML = document.querySelector('#readerNav a:first-child').innerHTML;
+    readernavs.addEventListener('click',function(e){
+      if(e.target.tagName == 'A'){
+        let i=Number(e.target.dataset.id)
+        readershowNavs.classList.remove('show')
+        document.querySelector(`#contain${i}`).classList.add('show');
+        readershowNavs=document.querySelector(`#contain${i}`);
+        document.querySelector('.head p').innerHTML = e.target.innerHTML;
+      }
+    })
+    const logout=document.querySelector('.logout')
+    // 登出操作
+    logout.addEventListener('click', function () {
+        if (token == 'admin') {
+          axios({
+            url: 'http://localhost:8088/admin/admin/logout',
+            method: 'post',
+            headers:{
+              "Content-Type":"application/json",
+              'adminToken':`${localStorage.getItem('id-token')}`
+            }
+          }).then(result => {
+            window.location.href = './login.html'
+          }).catch(error => {
+            console.log(error)
+            //alert(error.response.data.message)
+          })
+        } else if (token == 'employee') {
+          axios({
+            url: 'http://localhost:8088/employee/employee/logout',
+            method: 'post',
+            headers:{
+              "Content-Type":"application/json",
+              'employeeToken':`${localStorage.getItem('id-token')}`
+            }
+          }).then(result => {
+            window.location.href = './login.html'
+          }).catch(error => {
+            console.log(error)
+            //alert(error.response.data.message)
+          })
+          // document.querySelector('.nav #empNav').classList.add('show')
+          // empshowNavs.classList.add('show')
+        } else if (token == 'user') {
+          axios({
+            url: 'http://localhost:8088/user/user/logout',
+            method: 'post',
+            headers:{
+              "Content-Type":"application/json",
+              'userToken':`${localStorage.getItem('id-token')}`
+            }
+          }).then(result => {
+            window.location.href = './login.html'
+          }).catch(error => {
+            console.log(error)
+            //alert(error.response.data.message)
+          })
+          // document.querySelector('.nav #readerNav').classList.add('show')
+          // readershowNavs.classList.add('show')
+        }
+
+        
+      })
+    const personData=document.querySelector('.person-data')
+    personData.addEventListener('click',function(){
+      window.location.href='./data.html'
+    })
+    // ---------------根据不用的用户类型来初始化界面--------------------------------
+    
+    if(document.querySelector('.nav .show')!=null){
+      document.querySelector('.nav .show').classList.remove('show')
+    }
+    let creator
+    if(token=='admin'){{
+      axios({
+        url: `http://localhost:8088/admin/admin`,
+        method: 'get',
+        headers: {
+          'adminToken': `${localStorage.getItem('id-token')}`
+        },
+
+      }).then(result=>{
+        console.log(result)
+        creator=result.data.data.name
+        document.querySelector('.user-avatar p').textContent=creator
+        document.querySelector('.user-details h3').textContent=creator
+        //document.querySelector('.prew').src=localStorage.getItem(`${creator}`)==null?"images/logo1.png":localStorage.getItem(`${creator}`)
+      }).catch(error=>{
+        console.log(error)
+      })
+    }
+      const personalLi = document.querySelector('li a.person-data').parentNode;
+      const settingLi = document.querySelector('li a i.fa-cog').parentNode.parentNode; 
+      // 隐藏
+      personalLi.style.display = "none";
+      settingLi.style.display = "none";
+      document.querySelector('.nav #adminNav').classList.add('show')
+      showNavs.classList.add('show')
+    }else if(token=='employee'){
+      axios({
+        url: `http://localhost:8088/employee/employee`,
+        method: 'get',
+        headers: {
+          'employeeToken': `${localStorage.getItem('id-token')}`
+        },
+
+      }).then(result=>{
+        console.log(result)
+        creator=result.data.data.name
+        document.querySelector('.user-avatar p').textContent=creator
+        document.querySelector('.user-details h3').textContent=creator
+        //document.querySelector('.prew').src=localStorage.getItem(`${creator}`)==null?"images/logo1.png":localStorage.getItem(`${creator}`)
+      }).catch(error=>{
+        console.log(error)
+      })
+      const personalLi = document.querySelector('li a.person-data').parentNode;
+      const settingLi = document.querySelector('li a i.fa-cog').parentNode.parentNode; 
+      // 隐藏
+      personalLi.style.display = "none";
+      settingLi.style.display = "none";
+      //document.querySelector('.user-avatar')
+      document.querySelector('.nav #empNav').classList.add('show')
+      empshowNavs.classList.add('show')
+    }else if(token=='user'){
+      axios({
+        url: `http://localhost:8088/user/user`,
+        method: 'get',
+        headers: {
+          'userToken': `${localStorage.getItem('id-token')}`
+        },
+
+      }).then(result=>{
+        console.log(result)
+        creator=result.data.data.name
+        console.log(creator)
+        document.querySelector('.user-avatar img').src=localStorage.getItem(`${creator}`)==null?"images/logo1.png":localStorage.getItem(`${creator}`)
+      document.querySelector('.user-avatar p').textContent=creator
+      document.querySelector('.user-profile img').src=localStorage.getItem(`${creator}`)==null?"images/logo1.png":localStorage.getItem(`${creator}`)
+      document.querySelector('.user-details h3').textContent=creator
+        //document.querySelector('.prew').src=localStorage.getItem(`${creator}`)==null?"images/logo1.png":localStorage.getItem(`${creator}`)
+      }).catch(error=>{
+        console.log(error)
+      })
+      const personalLi = document.querySelector('li a.person-data').parentNode;
+      const settingLi = document.querySelector('li a i.fa-cog').parentNode.parentNode; 
+      // 隐藏
+      personalLi.style.display = "block";
+      settingLi.style.display = "none";
+     
+      
+      document.querySelector('.nav #readerNav').classList.add('show')
+      readershowNavs.classList.add('show')
+    }
+    //------------------------------------------------------------------------------
+  </script></div>
+</body>
+
+</html>

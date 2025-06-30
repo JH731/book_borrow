@@ -1,0 +1,176 @@
+/* 右侧主要内容区域样式 */
+.main-content {
+    /* flex: 1; */
+    
+    width: 100%;
+    background-color: rgb(223, 220, 220);
+  }
+  
+  
+
+  .head{
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .head .fa-sliders{
+    margin-left: 20px;
+    margin-right: 10px;
+    font-size: 24px;
+    
+  }
+
+  .fa-angle-right{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 24px;
+  }
+
+  .head p{
+    font-size: 24px;
+  }
+
+  .header span {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .search-bar select {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .search-bar button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .action-buttons {
+    margin-bottom: 20px;
+  }
+  
+  .btn-borrow,
+  .btn-return,
+  .btn-delete {
+    padding: 8px 15px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-borrow {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-return {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .book-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .book-table th,
+  .book-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .book-table td button {
+    margin-right: 20px;
+  }
+  
+  .book-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .status-borrowing {
+    background-color: #ffc107;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: white;
+  }
+  
+  .status-delay-return {
+    background-color: #ff6c00;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: white;
+  }
+  
+  .status-lost-book {
+    background-color: #6c757d;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: white;
+  }
+  
+  .status-damaged-return {
+    background-color: #dc3545;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: white;
+  }
+  
+  .status-normal-return {
+    background-color: #28a745;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: white;
+  }
+  
+  .pagination {
+    display: flex;
+    align-items: center;
+  }
+  
+  .pagination button,
+  .pagination input,
+  .pagination select {
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 15px;
+  }
+  
+  .pagination button {
+    cursor: pointer;
+  }
+  
+  .pagination input {
+    width: 30px;
+  }
+  
+  .pagination select {
+    width: 80px;
+  }

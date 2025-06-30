@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录界面</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.staticfile.net/jquery/1.10.2/jquery.min.js">
+    </script>
+</head>
+<body>
+    <!--登录内容-->
+    <div class="xtx-login-main">
+        <div class="tab-title">
+            <h1>WELCOME</h1>
+        </div>
+    
+    
+        <div class="input-wrap in-1">
+            <input required type="text" id="user" autocomplete="off" placeholder="请输入用户名/手机号/邮箱">
+            <span class="msg"></span>
+            <i class="fa fa-user" style="font-size:24px;"></i> <!-- 修改为 Font Awesome 4.x 的类名 -->
+            
+        </div>
+        <div class="input-wrap in-2">
+            <input required type="password" autocomplete="off" id="psd" placeholder="请输入密码">
+            <span class="msg"></span>
+            <i class="fa fa-lock" style="font-size:24px;"></i> <!-- 添加密码图标 -->
+            
+        </div>
+    
+        <!--登录类型下拉菜单-->
+        <select id="loginType" name="loginType">
+            <option value="" class="placeholder">请选择用户类型</option>
+            <option value="admin">管理员</option>
+            <option value="employee">员工</option>
+            <option value="user">用户</option>
+        </select>
+        <span class="msg se"></span>
+    
+        <!-- <div class="agree">
+                    <label for="my-checkbox">
+                        <input type="checkbox" value="1" id="my-checkbox" class="remember" name="agree">
+                        我已同意 <a >《服务条款》</a>
+                    </label>
+                    
+                </div> -->
+    
+        <button type="submit" class="dl">登录</button>
+        <!-- <p class="reg">
+            没有账号?<a href="./register.html">点我注册</a>
+        </p> -->
+    </div>
+    <!-- From Uiverse.io by Nawsome -->
+    <div class="loader-wrap">
+        <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+            <div class="wheel"></div>
+            <div class="hamster">
+                <div class="hamster__body">
+                    <div class="hamster__head">
+                        <div class="hamster__ear"></div>
+                        <div class="hamster__eye"></div>
+                        <div class="hamster__nose"></div>
+                    </div>
+                    <div class="hamster__limb hamster__limb--fr"></div>
+                    <div class="hamster__limb hamster__limb--fl"></div>
+                    <div class="hamster__limb hamster__limb--br"></div>
+                    <div class="hamster__limb hamster__limb--bl"></div>
+                    <div class="hamster__tail"></div>
+                </div>
+            </div>
+            <div class="spoke"></div>
+        </div>
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    $(window).on("load",function(){
+        $(".loader-wrap").fadeOut("slow")
+    })
+    
+    const username=document.querySelector('[type=text]')
+    username.addEventListener('change',verifyName)
+    function verifyName(){
+        const reg1=/^[a-zA-Z0-9-_]{5,10}$/
+        const reg2=/^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
+        const reg3=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        const reg4=/@/
+        const reg5=/^[\d]{11}$/
+        const combinedRegex = new RegExp(`(${reg1.source})|(${reg2.source})|(${reg3.source})`);
+        const span=username.nextElementSibling
+        if(!combinedRegex.test(username.value)){
+            if(username.value==''){
+                span.innerHTML='用户名不能为空'
+            }else if(reg4.test(username.value)){
+                span.innerHTML="邮箱格式错误"
+            }else if(reg5.test(username.value)){
+                span.innerHTML="手机号格式错误"
+            }else{
+                span.innerHTML="用户名格式错误"
+            }
+            return false
+        }
+        span.innerHTML=''
+        return true
+    }
+
+    const pwd=document.querySelector('[type=password]')
+    pwd.addEventListener('change',verifyPwd)
+    function verifyPwd(){
+      const reg=/^[a-zA-Z0-9-_]{6,20}$/
+      const span=pwd.nextElementSibling
+      if(!reg.test(pwd.value)){
+        if(pwd.value=='')
+        span.innerHTML='密码不能为空'
+        else
+        span.innerHTML='密码格式错误'
+        return false
+      }
+      span.innerHTML=''
+      return true
+    }
+
+    const sec=document.querySelector('[name=loginType]')
+    const secSpan=document.querySelector('.se')
+    function verifySec(){
+        if(sec.value==''){
+            secSpan.innerHTML='请选择用户类型'
+            return false
+        }
+        return true;
+    }
+
+    function getType(){
+        if(sec.value=='admin')
+            return 3
+        else if(sec.value=='employee')
+            return 2
+        else if(sec.value=='user')
+            return 1
+    }
+
+    const dl = document.querySelector('.dl');
+        dl.addEventListener('click', function (e) {
+            // 阻止默认提交行为
+            e.preventDefault();
+
+            // 执行所有验证函数
+            const isNameValid = verifyName();
+            const isPwdValid = verifyPwd();
+            const isSecValid = verifySec();
+            
+            // 如果所有验证都通过，则跳转到指定页面
+            if (isNameValid && isPwdValid && isSecValid) {
+                console.log(getType())
+                const loginData={
+                    userName:username.value,
+                        password:pwd.value,
+                        type:getType()
+                }
+                axios({
+                    url:'http://localhost:8088/login/login',
+                    method:'post',
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    data:JSON.stringify(loginData)
+                }).then(result=>{
+                    console.log(result)
+                    if(result.data.code=='1'){
+                        localStorage.setItem('id-token',result.data.data.token)
+                        window.location.href = './main.html';
+                    }
+                    else{
+                        alert(result.data.msg)
+                    }
+                    
+                }).catch(error=>{
+                    console.log(error)
+                    //alert(error.response.data.message)
+                    alert('网络连接错误')
+                })
+                localStorage.setItem('token',sec.value)
+                
+            }
+        });
+
+</script>     
+</body>
+</html>
