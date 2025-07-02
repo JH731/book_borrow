@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注册界面</title>
+  <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/4.7.0/css/font-awesome.min.css"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/register.css">
+  <script src="https://cdn.staticfile.net/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body class="font-inter min-h-screen bg-neutral flex items-center justify-center p-4">
+  <!-- 全屏容器 -->
+  <div class="auth-container">
+    <!-- 左侧图片区域 -->
+    <div class="left-panel">
+      <div class="slider">
+        <!-- <div class="slider-wrapper">
+                  <img src="./images/slider01.jpg" alt="" />
+                </div> -->
+        <div class="slider-footer">
+          <p>网罗知识，畅享阅读之趣</p>
+          <ul class="slider-indicator">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <div class="toggle">
+            <button class="prev">&lt;</button>
+            <button class="next">&gt;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧表单区域 -->
+    <div class="right-panel">
+      <h1>Welcome to the library</h1>
+
+      <!-- 社交登录 -->
+      <!-- <div class="social-login">
+                <button class="social-btn google-btn">
+                    <i class="fa fa-google"></i>
+                    <span>Google</span>
+                </button>
+                <button class="social-btn facebook-btn">
+                    <i class="fa fa-facebook"></i>
+                    <span>Facebook</span>
+                </button>
+            </div> -->
+
+      <!-- 分隔线
+            <div class="divider">
+                <div class="line"></div>
+                <span>OR</span>
+                <div class="line"></div>
+            </div> -->
+
+      <!-- 表单 -->
+      <form class="auth-form">
+        <div class="form-group">
+          <label>用户名</label>
+          <div class="input-container">
+            <span class="input-icon">
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" placeholder="请输入5~10位用户名（可以包含大小写字母、数字和下划线）">
+            <span class="msg"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>最大借阅数量</label>
+          <div class="input-container">
+            <span class="input-icon">
+              <i class="fa fa-id-card"></i>
+            </span>
+            <input type="text" placeholder="请输入读者能借阅的最大数量">
+            <span class="msg"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>性别</label>
+          <div class="input-container">
+            <span class="input-icon">
+              <i class="fa fa-venus-mars"></i>
+            </span>
+            <input type="radio" id="male" name="gender" value="男" checked>
+            <label for="male" id="tomale">男</label>
+            <input type="radio" id="female" name="gender" value="女">
+            <label for="male" id="tofemale">女</label>
+            <span class="msg"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>电话号码</label>
+          <div class="input-container">
+            <span class="input-icon">
+              <i class="fa fa-phone"></i>
+            </span>
+            <input type="text" placeholder="请输入11位电话号码">
+            <span class="msg"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>密码</label>
+          <div class="input-container">
+            <span class="input-icon">
+              <i class="fa fa-lock"></i>
+            </span>
+            <input type="password" placeholder="请输入5~20位密码（可以包含大小写字母、数字和下划线）">
+            <span class="msg"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          注册账户
+        </button>
+      </form>
+
+      <!-- 底部链接 -->
+      <p class="login-link">
+        已有帐号？
+        <a href="./main.html">返回</a>
+      </p>
+    </div>
+  </div>
+  <!-- From Uiverse.io by Nawsome -->
+  <div class="loader-wrap">
+    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+      <div class="wheel"></div>
+      <div class="hamster">
+        <div class="hamster__body">
+          <div class="hamster__head">
+            <div class="hamster__ear"></div>
+            <div class="hamster__eye"></div>
+            <div class="hamster__nose"></div>
+          </div>
+          <div class="hamster__limb hamster__limb--fr"></div>
+          <div class="hamster__limb hamster__limb--fl"></div>
+          <div class="hamster__limb hamster__limb--br"></div>
+          <div class="hamster__limb hamster__limb--bl"></div>
+          <div class="hamster__tail"></div>
+        </div>
+      </div>
+      <div class="spoke"></div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    // 表单提交处理
+    document.querySelector('.auth-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      // 这里可以添加表单验证逻辑
+      alert('Registration form submitted!');
+    });
+
+    //左侧轮播图代码
+    const sliderData = [
+      { url: './images/slider01.jpg', title: '网罗知识，畅享阅读之趣' },
+      { url: './images/slider02.jpg', title: '数字馆藏，照亮求知前路' },
+      { url: './images/slider03.jpg', title: '云端书香，点燃求知热情' },
+      { url: './images/slider04.jpg', title: '点击之间，探索知识新境' },
+      { url: './images/slider05.jpg', title: '静以修身，书以养性' },
+      { url: './images/slider06.jpg', title: '让文字发声，让心灵宁静' },
+      { url: './images/slider07.jpg', title: '读万卷书，行万里路' },
+      { url: './images/slider08.jpg', title: '书籍是人类进步的阶梯' },
+    ]
+    const next = document.querySelector('.next')
+    const leftPanel = document.querySelector('.left-panel')
+
+
+    const p = document.querySelector('.slider-footer p')
+    const footer = document.querySelector('.slider-footer')
+    let i = 0
+    let maxBorrow
+    function common() {
+      leftPanel.style.backgroundImage = `url(${sliderData[i].url})`
+      p.innerHTML = sliderData[i].title
+      //footer.backgroundColor=`url(sliderData[i].color)`
+      document.querySelector('.slider-indicator .active').classList.remove('active')
+      document.querySelector(`.slider-indicator li:nth-child(${i + 1})`).classList.add('active')
+    }
+    next.addEventListener('click', function () {
+      i++
+      i = i >= sliderData.length ? 0 : i
+      common()
+    })
+    const prev = document.querySelector('.prev')
+    prev.addEventListener('click', function () {
+      i--
+      i = i < 0 ? sliderData.length - 1 : i
+      common()
+    })
+
+    let interval = setInterval(function () {
+      next.click()
+    }, 5000)
+
+    document.querySelector('.slider').addEventListener('mouseenter', function () {
+      clearInterval(interval)
+    })
+
+    document.querySelector('.slider').addEventListener('mouseleave', function () {
+      interval = setInterval(function () {
+        next.click()
+      }, 5000)
+    })
+    const username = document.querySelector('[type=text]')
+    username.addEventListener('change', verifyName)
+    function verifyName() {
+      const reg = /^[a-zA-Z0-9-_]{5,10}$/
+      const span = username.nextElementSibling
+      if (!reg.test(username.value)) {
+        if (username.value == '')
+          span.innerHTML = '用户名不能为空'
+        else
+          span.innerHTML = '用户名格式错误'
+        return false
+      }
+      span.innerHTML = ''
+      return true
+    }
+    let study = document.querySelector('[placeholder=请输入读者能借阅的最大数量]')
+    // study.addEventListener('change', verifyStudy)
+    // function verifyStudy() {
+    //   maxBorrow=study.value
+    //   const span = study.nextElementSibling
+    //   if (study.value == ''){
+    //     span.innerHTML = '最大借阅数量不能为空'
+    //     return false
+    //   }
+    //   span.innerHTML = ''
+    //   return true
+    // }
+    const phone = document.querySelector('[placeholder=请输入11位电话号码]')
+    phone.addEventListener('change', verifyPhone)
+    function verifyPhone() {
+      const reg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/
+      const span = phone.nextElementSibling
+      if (!reg.test(phone.value)) {
+        if (phone.value == '')
+          span.innerHTML = '电话号码不能为空'
+        else
+          span.innerHTML = '电话号码格式错误'
+        return false
+      }
+      span.innerHTML = ''
+      return true
+    }
+    const pwd = document.querySelector('[type=password]')
+    pwd.addEventListener('change', verifyPwd)
+    function verifyPwd() {
+      const reg = /^[a-zA-Z0-9-_]{5,20}$/
+      const span = pwd.nextElementSibling
+      if (!reg.test(pwd.value)) {
+        if (pwd.value == '')
+          span.innerHTML = '密码不能为空'
+        else
+          span.innerHTML = '密码格式错误'
+        return false
+      }
+      span.innerHTML = ''
+      return true
+    }
+
+    const sexRadio = document.querySelector('input[name="gender"]:checked')
+
+    const sub = document.querySelector('.submit-btn');
+    sub.addEventListener('click', function (e) {
+      // 阻止默认提交行为
+      e.preventDefault();
+
+      // 执行所有验证函数
+      const isNameValid = verifyName();
+      // const isStudyValid = verifyStudy();
+      const isPwdValid = verifyPwd();
+      const isPhoneValid = verifyPhone();
+     
+      // 如果所有验证都通过，则跳转到指定页面
+      if (isNameValid && isPwdValid && isPhoneValid ) {
+        console.log("最大借阅数量是"+study.value)
+        const requestData = {
+          'id': 0,
+          'name': username.value,
+          'password': pwd.value,
+          'phone': phone.value,
+          'sex': sexRadio.value,
+          'maxBorrow':study.value,
+          'avatar': null,
+          'status': 0,
+          'createTime': null,
+          'createUser': 0,
+          'updateTime': null,
+          'updateUser': 0,
+          
+        }
+        
+        axios({
+          url: 'http://localhost:8088/admin/user/add',
+          method: 'post',
+          headers: {
+            'adminToken': `${localStorage.getItem('id-token')}`
+          },
+          data: requestData
+        }).then(result => {
+          console.log(result)
+          if (result.data.code == '1') {
+            //console.log(requestData)
+            window.location.href = './main.html';
+          }
+          else {
+            alert(result.data.msg)
+          }
+
+        }).catch(error => {
+          console.log(error)
+
+          //alert(error.response.data.message)
+          alert('网络连接错误')
+        })
+
+      }
+
+    });
+    $(window).on("load", function () {
+      $(".loader-wrap").fadeOut("slow")
+    })
+  </script>
+</body>
+
+</html>

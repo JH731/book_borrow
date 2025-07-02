@@ -8,14 +8,20 @@ spring:
     allow-circular-references: true
   datasource:
     druid:
-      driver-class-name: ${borrow.datasource.driver-class-name}
-      url: jdbc:mysql://${borrow.datasource.host}:${borrow.datasource.port}/${borrow.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${borrow.datasource.username}
-      password: ${borrow.datasource.password}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url:  jdbc:mysql://localhost:3306/book_borrow?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: "1234"
   redis:
     host: ${borrow.redis.host}
     port: ${borrow.redis.port}
     database: ${borrow.redis.database}
+  jpa: # JPA相关配置（即使不用JPA，也需在此处禁用ddl-auto）
+    hibernate:
+     ddl-auto: none  # 禁用Hibernate自动建表（必须！避免与schema.sql冲突）
+  sql: # SQL初始化配置（控制schema.sql/data.sql执行）
+    init:
+      mode: always  # 始终执行初始化（可选：always/embedded/never，开发环境用always，生产环境谨慎）
 
 mybatis-plus:
   #mapper配置文件
@@ -24,6 +30,7 @@ mybatis-plus:
   configuration:
     #开启驼峰命名
     map-underscore-to-camel-case: true
+
 
 logging:
   level:
